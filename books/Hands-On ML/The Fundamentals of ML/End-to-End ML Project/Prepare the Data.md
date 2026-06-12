@@ -145,6 +145,8 @@ predictions = model.predict(X_test)
 This is usually safer and less error-prone than manually transforming and inverse-transforming the target values.
 ## Custom Transformers
 Although Scikit-Learn provides many useful transformers, you will occasionally need to **write your own** [[Custom Transformers]] for specific tasks.
+
+> Remember: transformers must never change the number of rows in a dataset!
 ## Transformation Pipelines
 Real-world preprocessing often requires **multiple transformations applied in a specific order**. Scikit-Learn's `Pipeline` class allows you to chain these steps into a single estimator.
 
@@ -159,7 +161,8 @@ num_pipeline = Pipeline([
 ("standardize", StandardScaler()), # step 2: scale the features
 ])
 
-# pipelines support indexing; for example, pipeline[1] returns the second estimator
+# pipelines support indexing
+pipeline[1] # returns the second estimator
 ```
 Or, you can use the `make_pipeline()` function instead:
 ```python
@@ -173,7 +176,7 @@ num_pipeline = make_pipeline(
 	StandardScaler() # standardscaler
 	)
 	
-# num_pipeline["simpleimputer"] returns the estimator named "simpleimputer".
+num_pipeline["simpleimputer"] # returns the estimator named "simpleimputer".
 ```
 
 The estimators must all be transformers (i.e., they must have a `fit_transform()` method), except for the last one, which can be anything: a transformer, a predictor, or any other type of estimator.
@@ -199,12 +202,116 @@ df_features_num_prepared = pd.DataFrame(
 	index=features_num.index
 	)
 ```
-...
+### Column Transformation Pipelines
+So far, we have handled the categorical and numerical columns separately. `ColumnTransformer` allows us to combine them into a **single transformer that applies the appropriate transformation to each column**.
 
+For example, the following `ColumnTransformer` will apply `num_pipeline` to the numerical attributes, and `cat_pipeline` to the categorical attribute:
+```python
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
 
+num_attribs = ["var1", "var2", "var3"]
+cat_attribs = ["cat_var"]
 
+# num_pipeline = ...
 
+cat_pipeline = make_pipeline(
+	SimpleImputer(strategy="most_frequent"),
+	OneHotEncoder(handle_unknown="ignore")
+	)
 
+preprocessing = ColumnTransformer([
+	("num", num_pipeline, num_attribs),
+	("cat", cat_pipeline, cat_attribs),
+])
 
+# If a pipeline outputs a sparse matrice and the others dense matrices,
+# ColumnTransformer returns sparse or dense output based on the overall density.
+```
+Or, instead of listing all column names, you can use the `make_column_selector()` function to automatically select all features of a given type. Moreover, if you do not need to name the transformers, you can use `make_column_transformer()`, which automatically assigns names.
+```python
+from sklearn.compose import make_column_selector, make_column_transformer
 
+preprocessing = make_column_transformer(
+   (num_pipeline, make_column_selector(dtype_include=np.number)), # pipeline-1
+   (cat_pipeline, make_column_selector(dtype_include=object)), # pipeline-2
+)
+```
 
+> Instead of using a transformer, you can specify the string `"drop"` if you want the columns to be dropped, or you can specify `"passthrough"` if you want the columns to be left untouched.
+
+```python
+# apply the preprocessing pipeline to the entire training dataset
+features_prepared = preprocessing.fit_transform(features)
+
+# recover the DataFrame
+df_features_prepared = pd.DataFrame(
+	features_prepared,
+	columns=preprocessing.get_feature_names_out(),
+	index=features.index
+	)
+```
+### Practical Example
+```python
+import numpy as np  
+  
+from sklearn.compose import ColumnTransformer, make_column_selector  
+from sklearn.impute import SimpleImputer  
+from sklearn.pipeline import make_pipeline  
+from sklearn.preprocessing import FunctionTransformer, StandardScaler  
+
+# Defined in notes/sklearn/custom-transformers
+from my_custom_transformers import ClusterSimilarity
+
+housing = train_set.drop("median_house_value", axis=1)
+
+def column_ratio(X):
+	return X[:, [0]] / X[:, [1]]
+
+def ratio_name(function_transformer, feature_names_in):
+	return ["ratio"] # feature names out
+
+def ratio_pipeline():
+	return make_pipeline(
+		SimpleImputer(strategy="median"),
+		FunctionTransformer(column_ratio, feature_names_out=ratio_name),
+		StandardScaler()
+		)
+
+log_pipeline = make_pipeline(
+	SimpleImputer(strategy="median"),
+	FunctionTransformer(np.log, feature_names_out="one-to-one"),
+	StandardScaler()
+	)
+
+cluster_simil = ClusterSimilarity(n_clusters=10, gamma=1., random_state=42)
+
+default_num_pipeline = make_pipeline(
+	SimpleImputer(strategy="median"),
+	StandardScaler()
+	)
+
+preprocessing = ColumnTransformer([
+	("bedrooms", ratio_pipeline(), ["total_bedrooms", "total_rooms"]),
+	("rooms_per_house", ratio_pipeline(), ["total_rooms", "households"]),
+	("people_per_house", ratio_pipeline(), ["population", "households"]),
+	("log", log_pipeline, ["total_bedrooms", "total_rooms", "population",
+	"households", "median_income"]),
+	("geo", cluster_simil, ["latitude", "longitude"]),
+	("cat", cat_pipeline, make_column_selector(dtype_include=object)),
+	],
+	remainder=default_num_pipeline) # one column remaining: housing_median_age
+
+housing_prepared = preprocessing.fit_transform(housing)
+housing_prepared # NumPy array with 24 features
+preprocessing.get_feature_names_out()
+# array(['bedrooms__ratio', 'rooms_per_house__ratio',
+# 'people_per_house__ratio', 'log__total_bedrooms',
+# 'log__total_rooms', 'log__population', 'log__households',
+# 'log__median_income', 'geo__Cluster 0 similarity', [...],
+# 'geo__Cluster 9 similarity', 'cat__ocean_proximity_<1H OCEAN',
+# 'cat__ocean_proximity_INLAND', 'cat__ocean_proximity_ISLAND',
+# 'cat__ocean_proximity_NEAR BAY', 'cat__ocean_proximity_NEAR OCEAN',
+# 'remainder__housing_median_age'], dtype=object)
+```
