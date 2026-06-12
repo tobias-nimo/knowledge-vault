@@ -199,9 +199,7 @@ df_features_num_prepared = pd.DataFrame(
 	index=features_num.index
 	)
 ```
-
-
-
+...
 
 
 
