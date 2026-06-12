@@ -14,7 +14,7 @@ A machine learning system can only learn effectively if it is trained on a **set
 - Feature extraction
 - Creating new features by gathering new data
 ## Overfitting
-Overfitting means that the model **performs well on the training data, but it does not generalize well**.
+#overfitting means that the model **performs well on the training data, but it does not generalize well**.
 ![[1-23.png]]
 **Complex models** can detect subtle patterns in the data, but if the training set is noisy, or if it is too small then the model is likely to detect patterns in the noise itself. Obviously these patterns will not generalize to new instances.
 
@@ -26,7 +26,7 @@ Here are possible solutions:
 - Gather more training data.
 - Reduce the noise in the training data (e.g., fix data errors and remove outliers).
 ## Underfitting
-Underfitting is the opposite of overfitting: it occurs when your **model is too simple to learn the underlying structure of the data**. 
+#underfitting is the opposite of overfitting: it occurs when your **model is too simple to learn the underlying structure of the data**. 
 ![[G-1.png]]
 Here are the main solutions:
 - Select a more powerful model, with more parameters.

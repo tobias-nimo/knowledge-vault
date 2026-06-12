@@ -261,7 +261,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import make_pipeline  
 from sklearn.preprocessing import FunctionTransformer, StandardScaler  
 
-# Defined in notes/sklearn/custom-transformers
+# defined in notes/sklearn/custom-transformers
 from my_custom_transformers import ClusterSimilarity
 
 housing = train_set.drop("median_house_value", axis=1)
