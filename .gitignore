@@ -1,0 +1,8 @@
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Obsidian volatile state
+**/.obsidian/workspace.json
