@@ -3,6 +3,9 @@ First, make sure you have put the test set aside and you are **only exploring th
 
 **Make a copy** of the original training set so you can safely experiment and revert changes if needed.
 ```python
+import pandas as pd
+from my_datasets import train_set # defined in ./get-the-data
+
 # Create a copy of the training set
 exploration_set = train_set.copy()
 

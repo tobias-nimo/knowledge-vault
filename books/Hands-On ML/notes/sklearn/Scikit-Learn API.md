@@ -1,11 +1,13 @@
 # Scikit-Learn API Design
+#sklearn
+
 [Scikit-Learn’s API](https://scikit-learn.org/stable/) is remarkably well designed. Its main design principles are:
 ## Consistency
 All objects share a simple, consistent interface:
 - **Estimators**
 	Any object that learns parameters from data is an estimator (e.g., `SimpleImputer` and `LinearRegression`). Learning is performed with `fit()`, which takes a dataset (and labels for supervised learning). Configuration options that guide learning are called hyperparameters and are typically set through the constructor (e.g., `strategy`).
 - **Transformers**
-	Some estimators can transform data; these are called transformers (e.g., [[Scikit-Learn Imputers]]). They implement `transform()`, which returns the transformed dataset using the parameters learned during `fit()`. They also provide `fit_transform()`, which is equivalent to `fit()` followed by `transform()` and may be optimized for speed.
+	Some estimators can transform data; these are called transformers (e.g., [[Imputers]]). They implement `transform()`, which returns the transformed dataset using the parameters learned during `fit()`. They also provide `fit_transform()`, which is equivalent to `fit()` followed by `transform()` and may be optimized for speed.
 - **Predictors**
 	Some estimators can make predictions; these are called predictors (e.g., `LinearRegression`). They implement `predict()`, which returns predictions for new instances, and `score()`, which evaluates prediction quality on a test set.
 - **Inspection**

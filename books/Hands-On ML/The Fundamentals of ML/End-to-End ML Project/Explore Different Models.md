@@ -9,7 +9,9 @@ Suppose you decide to start with a simple **linear regression** model:
 ```python
 from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
+
 from my_pipelines import preprocessing # defined in ./prepare-the-data
+from my_datafranes import features, labels # defined in ./prepare-the-data
 
 # train the model
 lin_reg = make_pipeline(preprocessing, LinearRegression())
@@ -71,11 +73,11 @@ tree_rmse = root_mean_squared_error(y_valid, predictions) # 63837.60
 ```
 This approach gives a **more realistic estimate of how the model will perform on unseen data**. However, the evaluation depends on a single train/validation split, which means the result may vary depending on which samples end up in the validation set.
 ## Cross-Validation
-A more reliable alternative is k-fold #cross-validation.
+A more reliable alternative is **k-fold cross-validation**.
 
 The training set is split into _k_ non-overlapping subsets called _folds_. The model is trained _k_ times. Each time, a different fold is used for validation while the remaining _k − 1_ folds are used for training. The final result is a collection of _k_ evaluation scores instead of a single score.
 ![[2-20.png]]
-Scikit-Learn provides the `cross_val_score()` function to perform cross-validation:
+Scikit-Learn provides the `cross_val_score()` function to perform #cross-validation:
 ```python
 from sklearn.model_selection import cross_val_score 
 

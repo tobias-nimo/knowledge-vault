@@ -4,7 +4,7 @@ In typical environments, data is often stored in a **relational database** or an
 
 Instead of **manually downloading and decompressing the data**, it is usually better to **automate the process with a function** or a script. This makes it easy to fetch the latest version of the data whenever it changes, either on demand or through a scheduled job.
 
-Let's assume we run our data-loading function and the data is loaded into a **Pandas DataFrame**:
+Let's assume we run our data-loading function and the data is loaded into a #pandas **DataFrame**:
 ```python
 import pandas as pd
 
@@ -45,7 +45,7 @@ You should now have a better understanding of the kind of data you’re dealing 
 ## Create a Test Set
 Before exploring the data any further, you should create a test set, set it aside, and **never look at it during development**! Otherwise, you risk introducing [[Data Snooping Bias]].
 
-> [[Scikit-Learn API]] provides a number of splitter classes in the `sklearn.model_selection` package that implement various strategies to split your dataset into a training set and a test set.
+> [[Scikit-Learn API]] provides a number of splitter classes in the `sklearn.model_selection` package that implement various strategies to split your dataset into a training set and a test set. #sklearn 
 
 ### Random Sampling
 Creating a test set is theoretically simple; **pick some instances randomly**, typically 20% of the dataset (or less if your dataset is very large), and set them aside:
@@ -83,6 +83,8 @@ So far, we have considered purely random sampling methods. This generally works 
 
 To reduce this risk, use **stratified sampling**. This method divides the population into homogeneous subgroups, called *strata*, and samples the appropriate proportion of instances from each stratum. This helps ensure that the train and test sets remain representative of the original dataset.
 ```python
+from sklearn.model_selection import train_test_split
+
 strat_train_set, strat_test_set = train_test_split(
     df,
     test_size=0.2,

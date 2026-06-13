@@ -3,6 +3,9 @@ Machine Learning algorithms often benefit from **transformed data that better hi
 
 First, revert to a clean training set. You should also **separate the predictors and the labels**, since you don’t necessarily want to apply the same transformations to the predictors and the target values.
 ```python
+import pandas as pd
+from my_datasets import train_set # defined in ./get-the-data
+
 features = train_set.drop("target", axis=1)
 labels = train_set["target"].copy()
 ```
@@ -306,12 +309,15 @@ preprocessing = ColumnTransformer([
 housing_prepared = preprocessing.fit_transform(housing)
 housing_prepared # NumPy array with 24 features
 preprocessing.get_feature_names_out()
-# array(['bedrooms__ratio', 'rooms_per_house__ratio',
-# 'people_per_house__ratio', 'log__total_bedrooms',
-# 'log__total_rooms', 'log__population', 'log__households',
-# 'log__median_income', 'geo__Cluster 0 similarity', [...],
-# 'geo__Cluster 9 similarity', 'cat__ocean_proximity_<1H OCEAN',
-# 'cat__ocean_proximity_INLAND', 'cat__ocean_proximity_ISLAND',
-# 'cat__ocean_proximity_NEAR BAY', 'cat__ocean_proximity_NEAR OCEAN',
-# 'remainder__housing_median_age'], dtype=object)
+```
+
+```
+array(['bedrooms__ratio', 'rooms_per_house__ratio',
+'people_per_house__ratio', 'log__total_bedrooms',
+'log__total_rooms', 'log__population', 'log__households',
+'log__median_income', 'geo__Cluster 0 similarity', [...],
+'geo__Cluster 9 similarity', 'cat__ocean_proximity_<1H OCEAN',
+'cat__ocean_proximity_INLAND', 'cat__ocean_proximity_ISLAND',
+'cat__ocean_proximity_NEAR BAY', 'cat__ocean_proximity_NEAR OCEAN',
+'remainder__housing_median_age'], dtype=object)
 ```
