@@ -20,11 +20,18 @@ full_pipeline = Pipeline([
 ])
 
 param_grid = [
-	{'preprocessing__geo__n_clusters': [5, 8, 10],
-	'random_forest__max_features': [4, 6, 8]},
-	{'preprocessing__geo__n_clusters': [10, 15],
-	'random_forest__max_features': [6, 8, 10]},
+	{
+	'preprocessing__geo__n_clusters': [5, 8, 10],
+	'random_forest__max_features': [4, 6, 8]
+	},
+	{
+	'preprocessing__geo__n_clusters': [10, 15],
+	'random_forest__max_features': [6, 8, 10]
+	},
 ]
+
+# 'preprocessing__geo__n_clusters'
+# "preprocessing" pipeline -> "geo"` transformer -> `n_clusters` hyperparameter 
 
 grid_search = GridSearchCV(
 	full_pipeline, param_grid, cv=3,
@@ -33,5 +40,61 @@ grid_search = GridSearchCV(
 
 grid_search.fit(features, labels)
 ```
-> Notice that you can access the hyperparameters of any estimator inside a pipeline, even if it is nested several levels deep. Scikit-Learn uses double underscores (`__`) to navigate through the pipeline hierarchy.
+> **If fitting the pipeline transformers is computationally expensive**, you can set the pipeline’s `memory` parameter to the path of a **caching directory**: when you first fit the pipeline, Scikit-Learn will save the fitted transformers to this directory. If you then fit the pipeline again with the same hyperparameters, Scikit-Learn will just load the cached transformers.
 
+> Notice that you can **access the hyperparameters of any estimator inside a pipeline**, even if it is nested several levels deep. Scikit-Learn uses double underscores (`__`) to navigate through the pipeline hierarchy.
+
+In total the grid search will explore 3×3 + 2×3 = 15 combinations of hyperparameter values, and it will train the pipeline 3 times per combination, since we are using 3-fold cross validation. This means there will be a grand total of 15 × 3 = 45 rounds of training! **It may take a while**...
+
+Once the search is complete, you can **get the best combination of parameters** like this:
+```python
+grid_search.best_params_
+# {'preprocessing__geo__n_clusters': 15, 'random_forest__max_features': 6}
+
+# mmm... since `15` is the largest value tested for `n_clusters`, it may be worth running another search with larger values to see whether performance continues to improve.
+```
+By default, `GridSearchCV` uses `refit=True`: after identifying the best hyperparameter combination, it **retrains the model on the entire training set**. You can access the best model like this:
+```python
+best_model = grid_search.best_estimator_
+```
+You can access the **evaluation scores** like this:
+```python
+cv_res = pd.DataFrame(grid_search.cv_results_)
+cv_res.sort_values(by="mean_test_score", ascending=False, inplace=True)
+# [...] # change column names to fit and show rmse = -score
+cv_res.head()
+```
+
+```
+n_clusters max_features split0 split1 split2 mean_test_rmse
+15 6 42725 43708 44335 43590
+15 8 43486 43820 44900 44069
+10 4 43798 44036 44961 44265
+10 6 43710 44163 44967 44280
+10 6 43710 44163 44967 44280
+```
+## Randomized Search
+#randomized-search works much the same way as grid search, but instead of evaluating very possible combination, it **evaluates a fixed number of randomly selected combinations**. At each iteration, it samples a value for each hyperparameter and evaluates the resulting model using #cross-validation.
+
+For each hyperparameter, you must provide either a list of possible values, or a probability distribution:
+```python
+from sklearn.model_selection import RandomizedSearchCV
+from scipy.stats import randint 
+
+param_distributions = {
+	"preprocessing__geo__n_clusters": randint(3, 50),
+	"random_forest__max_features": randint(2, 20), 
+} 
+
+rnd_search = RandomizedSearchCV(
+	full_pipeline, param_distributions=param_distributions, cv=3,
+	scoring="neg_root_mean_squared_error", random_state=42, n_iter=10
+)
+
+rnd_search.fit(features, labels)
+```
+As a **rule of thumb**:
+- Use #grid-search when you have a small number of hyperparameters and a limited set of candidate values.
+- Use #randomized-search when the search space is large or when you have a limited computational budget.
+## Analyzing the Best Models and Their Errors
+...
