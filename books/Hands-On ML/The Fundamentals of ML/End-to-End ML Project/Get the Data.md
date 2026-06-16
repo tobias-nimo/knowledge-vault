@@ -81,7 +81,7 @@ If these conditions cannot be guaranteed, you should build an identifier from on
 ### Stratified Sampling
 So far, we have considered purely random sampling methods. This generally works well when the dataset is large enough (especially relative to the number of attributes). However, **with smaller datasets, random sampling may introduce significant [[Sampling Bias]]**.
 
-To reduce this risk, use **stratified sampling**. This method divides the population into homogeneous subgroups, called *strata*, and samples the appropriate proportion of instances from each stratum. This helps ensure that the train and test sets remain representative of the original dataset.
+To reduce this risk, use #stratified-sampling. This method divides the population into homogeneous subgroups, called *strata*, and samples the appropriate proportion of instances from each stratum. This helps ensure that the train and test sets remain representative of the original dataset.
 ```python
 from sklearn.model_selection import train_test_split
 
@@ -94,4 +94,4 @@ strat_train_set, strat_test_set = train_test_split(
 ```
 For example, if 30% of the instances belong to a particular category, stratified sampling will preserve approximately the same proportion in both the training and test sets.
 
-> Test set generation is often overlooked, but it is a **critical step in any machine learning project**. A properly constructed test set provides an unbiased estimate of how well the final model will perform on unseen data, while poor test set design can lead to misleading evaluation results.
+>[!warning] Test set generation is often overlooked, but it is a **critical step in any machine learning project**. A properly constructed test set provides an unbiased estimate of how well the final model will perform on unseen data, while poor test set design can lead to misleading evaluation results.

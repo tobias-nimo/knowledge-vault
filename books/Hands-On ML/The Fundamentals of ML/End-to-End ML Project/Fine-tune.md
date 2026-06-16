@@ -40,9 +40,10 @@ grid_search = GridSearchCV(
 
 grid_search.fit(features, labels)
 ```
-> **If fitting the pipeline transformers is computationally expensive**, you can set the pipeline’s `memory` parameter to the path of a **caching directory**: when you first fit the pipeline, Scikit-Learn will save the fitted transformers to this directory. If you then fit the pipeline again with the same hyperparameters, Scikit-Learn will just load the cached transformers.
 
 > Notice that you can **access the hyperparameters of any estimator inside a pipeline**, even if it is nested several levels deep. Scikit-Learn uses double underscores (`__`) to navigate through the pipeline hierarchy.
+
+> [!tip] **If fitting the pipeline transformers is computationally expensive**, you can set the pipeline’s memory parameter to the path of a **caching directory**: when you first fit the pipeline, Scikit-Learn will save the fitted transformers to this directory. If you then fit the pipeline again with the same hyperparameters, Scikit-Learn will just load the cached transformers.
 
 In total the grid search will explore 3×3 + 2×3 = 15 combinations of hyperparameter values, and it will train the pipeline 3 times per combination, since we are using 3-fold cross validation. This means there will be a grand total of 15 × 3 = 45 rounds of training! **It may take a while**...
 
@@ -93,8 +94,60 @@ rnd_search = RandomizedSearchCV(
 
 rnd_search.fit(features, labels)
 ```
-As a **rule of thumb**:
-- Use #grid-search when you have a small number of hyperparameters and a limited set of candidate values.
-- Use #randomized-search when the search space is large or when you have a limited computational budget.
-## Analyzing the Best Models and Their Errors
-...
+
+> [!tip] As a **rule of thumb**:
+> - Use #grid-search when you have a small number of hyperparameters and a limited set of candidate values.
+> - Use #randomized-search when the search space is large or when you have a limited computational budget.
+## Analyzing the Best Models
+You will often **gain good insights on the problem** by inspecting the best models. 
+
+For example, some models can indicate the **relative importance of each attribute** for making accurate predictions:
+```python
+final_model = rnd_search.best_estimator_ # includes preprocessing (`RandomForestRegressor`)
+feature_importances = final_model["random_forest"].feature_importances_
+features_names = final_model["preprocessing"].get_feature_names_out()
+
+sorted(zip(feature_importances, features_names), reverse=True)
+```
+
+```
+[(np.float64(0.18599734460509476), 'log__var1'),
+(np.float64(0.07338850855844489), 'cat__var2'),
+(np.float64(0.06556941990883976), 'var3__ratio'),
+[...]
+(np.float64(0.0004325970342247361), 'cat__var4'),
+(np.float64(3.0190221102670295e-05), 'cat__var5')]
+```
+With this information, you may want to **try dropping some of the less useful features**.
+### Error Analysis
+You should also **look at the specific errors** that your system makes, then try to understand why it makes them and what could fix the problem: adding extra features or getting rid of uninformative ones, cleaning up outliers, etc.
+### Fairness Analysis
+You should also evaluate fairness, ensuring that the model performs well not only on average but **across different groups** (e.g., urban vs. rural, rich vs. poor, etc.). This requires a **bias analysis on validation-set subsets**. If the model performs poorly for a particular group, it should be improved before deployment or restricted from making predictions for that group to avoid potential harm.
+## Evaluate on the Test Set
+Once you have finished tweaking your models and have a system that performs sufficiently well, **retrieve the test set and use your full pipeline** (`final_model`) to transform the data and generate predictions. Then, evaluate the model's performance on these predictions.
+```python
+X_test = test_set.drop("target", axis=1)
+y_test = test_set["target"].copy()
+
+final_predictions = final_model.predict(X_test)
+final_rmse = root_mean_squared_error(y_test, final_predictions)
+print(final_rmse) # 41445.533268606625
+```
+A single test-set score provides only a point estimate of the model's generalization error. To **measure the uncertainty of this estimate**, you can compute a #confidence-interval (e.g., 95%) using techniques such as #bootstrapping.
+```python
+from scipy import stats
+
+def rmse(squared_errors):
+	return np.sqrt(np.mean(squared_errors))
+
+confidence = 0.95
+squared_errors = (final_predictions - y_test) ** 2
+boot_result = stats.bootstrap([squared_errors], rmse,
+	confidence_level=confidence, random_state=42
+)
+
+rmse_lower, rmse_upper = boot_result.confidence_interval # 39,521 to 43,702,
+```
+If you did a lot of hyperparameter tuning, the performance will usually be slightly worse than what you measured using cross-validation. That’s because your system ends up fine-tuned to perform well on the validation data.
+
+>[!warning] You must **resist the temptation to tweak the hyperparameters** to make the numbers look good on the test set; the improvements would be unlikely to generalize to new data.

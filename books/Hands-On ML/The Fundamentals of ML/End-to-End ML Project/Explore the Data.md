@@ -1,5 +1,6 @@
 # Explore and Visualize the Data to Gain Insights
-First, make sure you have put the test set aside and you are **only exploring the training set**. 
+
+>[!warning] First, make sure you have put the test set aside and you are **only exploring the training set**. 
 
 **Make a copy** of the original training set so you can safely experiment and revert changes if needed.
 ```python
@@ -54,7 +55,7 @@ plt.show()
 ```
 Looking at the **correlation scatterplots**, you may identify attributes that are strongly correlated with the target variable and are therefore **promising predictors**.
 
-> Note that the correlation coefficient only measures linear correlations (“as $x$ goes up, $y$ generally goes up/down”). It may completely miss out on nonlinear relationships (e.g., “as $x$ approaches 0, $y$ generally goes up”).
+>[!warning] Note that the correlation coefficient only measures linear correlations (“as $x$ goes up, $y$ generally goes up/down”). It may completely miss out on nonlinear relationships (e.g., “as $x$ approaches 0, $y$ generally goes up”).
 ## Experiment with Attribute Combinations
 One last thing you may want to do before preparing the data for machine learning algorithms is to **try out new features by combining existing attributes**.
 ```python
@@ -67,5 +68,5 @@ corr_matrix = exploration_set.corr(numeric_only=True)
 corr_matrix["target"].sort_values(ascending=False)
 ```
 
-> When creating new combined features, make sure they are not too linearly correlated with existing features: **collinearity can cause issues with some models**, such as linear regression. In particular, avoid simple weighted sums of existing features.
+>[!warning] When creating new combined features, make sure they are not too linearly correlated with existing features: **collinearity can cause issues with some models**, such as linear regression. In particular, avoid simple weighted sums of existing features.
 

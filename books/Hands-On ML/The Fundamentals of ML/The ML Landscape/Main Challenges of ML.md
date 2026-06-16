@@ -5,11 +5,11 @@ It takes a lot of data for most machine learning algorithms to work properly. Ev
 
 > The 2009 paper [[The Unreasonable Effectiveness of Data]] established the idea that data matters more than algorithms for complex problems.
 ## Non-representative Data
-It is crucial to use a training set that is representative of the cases you want to generalize to. This is often harder than it sounds: if the sample is too small, you will have **sampling noise** (i.e., non-representative data as a result of chance), but even very large samples can be non-representative if the sampling method is flawed. This is called **sampling bias**.
+It is crucial to use a training set that is representative of the cases you want to generalize to. This is often harder than it sounds: if the sample is too small, you will have **sampling noise** (i.e., non-representative data as a result of chance), but even very large samples can be non-representative if the sampling method is flawed. This is called [[Sampling Bias]].
 ## Poor-Quality Data
 Obviously, if your training data is full of **errors**, **outliers**, **missing values** and **noise**, it will make it harder for the system to detect the underlying patterns, so your system is less likely to perform well. It is often well worth the effort to spend time **cleaning up your training data**.
 ## Irrelevant Features
-A machine learning system can only learn effectively if it is trained on a **set of relevant features** with few or no irrelevant ones. Ensuring high-quality features is the goal of **feature engineering**:
+A machine learning system can only learn effectively if it is trained on a **set of relevant features** with few or no irrelevant ones. Ensuring high-quality features is the goal of #feature-engineering:
 - Feature selection
 - Feature extraction
 - Creating new features by gathering new data

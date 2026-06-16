@@ -79,7 +79,7 @@ One issue with this representation is that ML algorithms will assume that two ne
 | blue  | 0   | 0     | 1    |
 The resulting binary features are often called **dummy variables**: takes the value `1` if the instance belongs to that category and `0` otherwise.
 
-> If a feature has a very large number of categories, one-hot encoding **can create many new features, increasing memory usage and training time**. In such cases, alternative encodings or learned embeddings may be more appropriate.
+>[!warning] If a feature has a very large number of categories, one-hot encoding **can create many new features, increasing memory usage and training time**. In such cases, alternative encodings or learned embeddings may be more appropriate.
 
 **Scikit-Learn** provides the `OneHotEncoder` transformer to automatically convert categorical features into one-hot encoded vectors.
 ```python
@@ -127,7 +127,7 @@ features_num_std = std_scaler.fit_transform(features_num)
 
 > Always remember to **fit scalers on the training set only** to avoid data leakage. After fitting, use `transform()` on the validation set, test set, and new data. With `MinMaxScaler`, values outside the training range may be scaled outside the target range; set `clip=True` to prevent this.
 
-> Check this notes about **[[Handling Non-Symmetrical Distributions]] before scaling**.
+> [!tip] Check this notes about **[[Handling Non-Symmetrical Distributions]] before scaling**.
 ### Transforming the Target Variable
 Sometimes the target variable also requires transformation. For example, if the target has a heavy-tailed distribution, applying a logarithmic transformation may improve model performance.
 
@@ -149,7 +149,7 @@ This is usually safer and less error-prone than manually transforming and invers
 ## Custom Transformers
 Although Scikit-Learn provides many useful transformers, you will occasionally need to **write your own** [[Custom Transformers]] for specific tasks.
 
-> Remember: transformers must never change the number of rows in a dataset!
+> [!warning] Remember: transformers must never change the number of rows in a dataset!
 ## Transformation Pipelines
 Real-world preprocessing often requires **multiple transformations applied in a specific order**. Scikit-Learn's `Pipeline` class allows you to chain these steps into a single estimator.
 
