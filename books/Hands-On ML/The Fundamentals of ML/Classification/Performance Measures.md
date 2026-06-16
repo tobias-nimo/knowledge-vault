@@ -24,8 +24,8 @@ sgd_clf.predict([some_digit]) # array([True]) -> correct prediction
 ```
 
 >Stochastic gradient descent ( #SGD ) classifier is always a good place to start. It is a simple algorithm and it handles very large datasets efficiently.
-## Measuring Accuracy
-Let's use #cross-validation to evaluate our classifier:
+## Accuracy
+Let's use #cross-validation to evaluate our classifier measuring #accuracy:
 ```python
 from sklearn.model_selection import cross_val_score
 
@@ -164,7 +164,7 @@ You now have a 90% precision classifier! It's actually **easy to reach almost an
 > #sklearn  offers two classes that make adjusting the threshold easier:
 > - [`FixedThresholdClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.FixedThresholdClassifier.html) wraps a binary classifier and lets you set the threshold manually.
 > - [`TunedThresholdClassifierCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html) uses k-fold cross validation to automatically find the optimal threshold for a given metric (by default, it tries to find the threshold that maximizes the model’s balanced accuracy — the average of each class’s recall).
-## The ROC Curve
+## ROC Curve
 The #ROC (receiver operating characteristic) curve is another **common tool for binary classifiers**. It plots the **true positive rate** (another name for #recall or *sensitivity*) against the **false positive rate** (another name for #fall-out).
 $$
 \text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}}
@@ -194,9 +194,7 @@ plt.plot([0, 1], [0, 1], 'k:', label="Random classifier's ROC curve")
 plt.plot([fpr_90], [tpr_90], "ko", label="Threshold for 90% precision")
 plt.show()
 ```
-
 ![[3-7.png]]
-
 The dotted line is the **ROC curve of a purely random classifier**; a good classifier stays as far from it as possible (toward the top-left corner). Once again there's a trade-off: **the higher the recall (TPR), the more false positives (FPR)**. 
 
 One way to compare classifiers is the **area under the curve** ( #AUC ): a perfect classifier has ROC AUC equal to 1, a purely random one has 0.5.
@@ -240,7 +238,6 @@ plt.plot(recalls_forest, precisions_forest, "b-", linewidth=2, label="Random For
 plt.plot(recalls, precisions, "--", linewidth=2, label="SGD")
 plt.show()
 ```
-
 ![[3-8.png]]
 The random forest's PR curve comes much closer to the **top-right corner**, so it's clearly superior to the SGD classifier.
 
@@ -248,7 +245,7 @@ Its $\text{F}_1$ and ROC AUC scores are also significantly better:
 ```python
 y_train_pred_forest = y_probas_forest[:, 1] >= 0.5 # positive proba >= 50%
 
-f1_score(y_train_5, y_train_pred_forest)      # 0.9275
-roc_auc_score(y_train_5, y_scores_forest)     # 0.9983
+f1_score(y_train_5, y_train_pred_forest)   # 0.9275
+roc_auc_score(y_train_5, y_scores_forest)  # 0.9983
 # precision ~99.0% and recall ~87.3%
 ```
