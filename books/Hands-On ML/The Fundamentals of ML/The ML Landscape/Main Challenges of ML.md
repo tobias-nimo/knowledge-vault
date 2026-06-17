@@ -3,6 +3,7 @@ In short, since your main task is to select a model and train it on some data, t
 ## Insufficient Quantity of Data
 It takes a lot of data for most machine learning algorithms to work properly. Even for very simple problems you typically need **thousands of examples**, and for complex problems you may need **millions of examples**.
 
+> [!note] 
 > The 2009 paper [[The Unreasonable Effectiveness of Data]] established the idea that data matters more than algorithms for complex problems.
 ## Non-representative Data
 It is crucial to use a training set that is representative of the cases you want to generalize to. This is often harder than it sounds: if the sample is too small, you will have **sampling noise** (i.e., non-representative data as a result of chance), but even very large samples can be non-representative if the sampling method is flawed. This is called [[Sampling Bias]].

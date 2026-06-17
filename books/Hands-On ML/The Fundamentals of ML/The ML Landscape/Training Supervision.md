@@ -31,6 +31,7 @@ The resulting model may be quite useful in itself—for example, to repair damag
 
 Let's imagine you want to build a pet-species classifier but only have many unlabeled pet photos, you can **first use self-supervised learning to train a model on a related task**, such as repairing damaged images. To successfully reconstruct missing parts of an image, the model must learn meaningful features about different animals. **After this pre-training stage, the model can be fine-tuned on a smaller labeled dataset** so it learns the mapping between the pet species it already recognizes and the desired output labels.
 
+> [!note]
 > Transferring knowledge from one task to another is called #transfer-learning, and it’s one of the most important techniques in machine learning today, especially when using deep neural networks.
 ## Reinforcement learning
 Here the learning system, called an **agent**, can observe the **environment**, select and perform **actions**, and get **rewards** in return (or penalties in the form of negative rewards). It must then learn by itself what is the best strategy, called a **policy**, to get the most reward over time. A policy defines what action the agent should choose when it is in a given situation.

@@ -2,6 +2,7 @@
 Machine Learning algorithms often benefit from **transformed data that better highlights the underlying patterns**. Instead of applying these transformations manually, implement them as **reusable functions** or pipelines.
 
 First, revert to a clean training set. You should also **separate the predictors and the labels**, since you don’t necessarily want to apply the same transformations to the predictors and the target values.
+
 ```python
 import pandas as pd
 from my_datasets import train_set # defined in ./get-the-data
@@ -15,6 +16,7 @@ Most machine learning algorithms cannot work with **missing features**, so you�
 2. Get rid of the whole attribute.
 3. Set the missing values to some value (zero, the mean, the median, etc.). This is
 called imputation.
+
 ```python
 # Drop instances (option 1)
 features.dropna(subset=["var1"], inplace=True) 
@@ -22,7 +24,9 @@ features.dropna(subset=["var1"], inplace=True)
 # Drop the whole attribute (option 2)
 features.drop("var1", axis=1, inplace=True) 
 ```
+
 To perform **imputation**, it is recommended to use Scikit-Learn `SimpleImputer` class. The imputer learns a replacement value for each feature in the training set (e.g., the median) and stores it internally. This allows the exact same values to be used later when imputing missing data in the validation set, test set, or any new data fed to the model.
+
 ```python
 from sklearn.impute import SimpleImputer
 
@@ -49,16 +53,21 @@ features_tr = pd.DataFrame(
 	index=features_num.index
 )
 ```
+
+> [!note]
 > There are many more Scikit-Learn [[Imputers]] available in the `sklearn.impute` package.
 ## Handling Text and Categorical Attributes
 Suppose our dataset has one text-based feature, and it is categorical.
+
 ```python
 features_cat = features[["cat_var"]]
 features_cat.value_counts()
 ```
+
 Most machine learning algorithms prefer to work with numbers, so let’s **convert these categories from text to numbers**. 
 ### Ordinal Encoding
 #ordinal-encoding **converts each category into an integer value**. For this, we can use Scikit-Learn’s `OrdinalEncoder` class:
+
 ```python
 from sklearn.preprocessing import OrdinalEncoder
 
@@ -68,6 +77,7 @@ features_cat_encoded = ordinal_encoder.fit_transform(features_cat)
 print(features_cat_encoded) # array([[3.], [0.], [1.], ...])
 print(ordinal_encoder.categories_) # [array(['text1', 'text2', ...], dtype=object)]
 ```
+
 One issue with this representation is that ML algorithms will assume that two nearby values are more similar than two distant values. This may be fine for **ordinal categories** (e.g., "bad", "average", "good", and "excellent"), but not for **nominal categories** (e.g., "red", "blue" and "green").
 ### One-Hot Encoding
 #one-hot-encoding  solves this problem by creating **one binary feature for each category**. For example, a feature with categories `red`, `green`, and `blue` can be transformed into three binary features:
@@ -79,9 +89,11 @@ One issue with this representation is that ML algorithms will assume that two ne
 | blue  | 0   | 0     | 1    |
 The resulting binary features are often called **dummy variables**: takes the value `1` if the instance belongs to that category and `0` otherwise.
 
->[!warning] If a feature has a very large number of categories, one-hot encoding **can create many new features, increasing memory usage and training time**. In such cases, alternative encodings or learned embeddings may be more appropriate.
+>[!warning] 
+>If a feature has a very large number of categories, one-hot encoding **can create many new features, increasing memory usage and training time**. In such cases, alternative encodings or learned embeddings may be more appropriate.
 
 **Scikit-Learn** provides the `OneHotEncoder` transformer to automatically convert categorical features into one-hot encoded vectors.
+
 ```python
 from sklearn.preprocessing import OneHotEncoder
 
@@ -93,7 +105,9 @@ features_cat_1hot.toarray() # (dense) NumPy array
 
 print(cat_encoder.categories_) # [array(['red', 'green', 'blue'], dtype=object)]
 ```
-`OneHotEncoder` remembers the categories seen during training and always produces the same output columns in the same order. This **ensures that new data is transformed consistently**, which is essential when deploying machine learning models. It can also detect previously unseen categories (or ignore them if `handle_unknown="ignore"` is set).  
+
+`OneHotEncoder` remembers the categories seen during training and always produces the same output columns in the same order. This **ensures that new data is transformed consistently**, which is essential when deploying machine learning models. It can also detect previously unseen categories (or ignore them if `handle_unknown="ignore"` is set).
+
 ```python
 df_output = pd.DataFrame(
 	cat_encoder.transform(df_new),
@@ -109,6 +123,7 @@ There are two common ways to get all attributes to have the same scale:
 #normalization (or min-max scaling) **rescales values to a fixed range**, usually 0–1:
 $$x' = \frac{x - x_{\min}}{x_{\max} - x_{\min}}$$
 Scikit-Learn provides the `MinMaxScaler` transformer for this task. The `feature_range` hyperparameter can be used to specify a different output range.
+
 ```python
 from sklearn.preprocessing import MinMaxScaler
 
@@ -118,6 +133,7 @@ features_num_norm = min_max_scaler.fit_transform(features_num)
 ### Standardization
 #standardization rescales values so they have a **mean of 0 and a standard deviation of 1**:  
 $$x' = \frac{x - \mu}{\sigma}$$Unlike normalization, standardization does not restrict values to a fixed range, but it is generally **less sensitive to outliers**. Scikit-Learn provides the `StandardScaler` transformer for this task.
+
 ```python
 from sklearn.preprocessing import StandardScaler
 
@@ -125,6 +141,7 @@ std_scaler = StandardScaler()
 features_num_std = std_scaler.fit_transform(features_num)
 ```
 
+> [!note]
 > Always remember to **fit scalers on the training set only** to avoid data leakage. After fitting, use `transform()` on the validation set, test set, and new data. With `MinMaxScaler`, values outside the training range may be scaled outside the target range; set `clip=True` to prevent this.
 
 > [!tip] Check this notes about **[[Handling Non-Symmetrical Distributions]] before scaling**.
@@ -132,6 +149,7 @@ features_num_std = std_scaler.fit_transform(features_num)
 Sometimes the target variable also requires transformation. For example, if the target has a heavy-tailed distribution, applying a logarithmic transformation may improve model performance.
 
 **After making predictions, the inverse transformation must be applied to recover values on the original scale**. Scikit-Learn provides `TransformedTargetRegressor`, which automatically applies a transformation to the target during training and reverses it during prediction:
+
 ```python
 from sklearn.compose import TransformedTargetRegressor
 from sklearn.linear_model import LinearRegression
@@ -145,15 +163,18 @@ model = TransformedTargetRegressor(
 model.fit(X_train, y_train)
 predictions = model.predict(X_test)
 ```
+
 This is usually safer and less error-prone than manually transforming and inverse-transforming the target values.
 ## Custom Transformers
 Although Scikit-Learn provides many useful transformers, you will occasionally need to **write your own** [[Custom Transformers]] for specific tasks.
 
-> [!warning] Remember: transformers must never change the number of rows in a dataset!
+> [!warning] Remember
+> Transformers must never change the number of rows in a dataset!
 ## Transformation Pipelines
 Real-world preprocessing often requires **multiple transformations applied in a specific order**. Scikit-Learn's `Pipeline` class allows you to chain these steps into a single estimator.
 
 For example, a typical numerical pipeline might be:
+
 ```python  
 from sklearn.pipeline import Pipeline  
 from sklearn.impute import SimpleImputer  
@@ -167,7 +188,9 @@ num_pipeline = Pipeline([
 # pipelines support indexing
 pipeline[1] # returns the second estimator
 ```
+
 Or, you can use the `make_pipeline()` function instead:
+
 ```python
 from sklearn.pipeline import make_pipeline
 
@@ -191,6 +214,7 @@ The pipeline exposes the same methods as the final estimator:
 - If the last estimator is a a predictor, then the pipeline would have a `predict()` method instead. Calling it would sequentially apply all the transformations to the data and pass the result to the predictor’s `predict()` method.
 
 Let’s apply this pipeline to some training data:
+
 ```python
 features_num_prepared = num_pipeline.fit_transform(features_num)
 
@@ -209,6 +233,7 @@ df_features_num_prepared = pd.DataFrame(
 So far, we have handled the categorical and numerical columns separately. `ColumnTransformer` allows us to combine them into a **single transformer that applies the appropriate transformation to each column**.
 
 For example, the following `ColumnTransformer` will apply `num_pipeline` to the numerical attributes, and `cat_pipeline` to the categorical attribute:
+
 ```python
 from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
@@ -232,7 +257,9 @@ preprocessing = ColumnTransformer([
 # If a pipeline outputs a sparse matrice and the others dense matrices,
 # ColumnTransformer returns sparse or dense output based on the overall density.
 ```
+
 Or, instead of listing all column names, you can use the `make_column_selector()` function to automatically select all features of a given type. Moreover, if you do not need to name the transformers, you can use `make_column_transformer()`, which automatically assigns names.
+
 ```python
 from sklearn.compose import make_column_selector, make_column_transformer
 
@@ -242,6 +269,7 @@ preprocessing = make_column_transformer(
 )
 ```
 
+> [!note] 
 > Instead of using a transformer, you can specify the string `"drop"` if you want the columns to be dropped, or you can specify `"passthrough"` if you want the columns to be left untouched.
 
 ```python
@@ -256,6 +284,7 @@ df_features_prepared = pd.DataFrame(
 	)
 ```
 ### Practical Example
+
 ```python
 import numpy as np  
   

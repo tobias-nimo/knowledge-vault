@@ -6,6 +6,7 @@ One approach is to adjust hyperparameters manually and evaluate the model repeat
 Instead, you can use #grid-search: given a set of hyperparameter values, uses #cross-validation to evaluate each combination.
 
 For example, the following code **searches for the best combination of hyperparameters** for a random forest model:
+
 ```python
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
@@ -41,13 +42,16 @@ grid_search = GridSearchCV(
 grid_search.fit(features, labels)
 ```
 
-> Notice that you can **access the hyperparameters of any estimator inside a pipeline**, even if it is nested several levels deep. Scikit-Learn uses double underscores (`__`) to navigate through the pipeline hierarchy.
+>[!note] 
+>Notice that you can **access the hyperparameters of any estimator inside a pipeline**, even if it is nested several levels deep. Scikit-Learn uses double underscores (`__`) to navigate through the pipeline hierarchy.
 
-> [!tip] **If fitting the pipeline transformers is computationally expensive**, you can set the pipeline’s memory parameter to the path of a **caching directory**: when you first fit the pipeline, Scikit-Learn will save the fitted transformers to this directory. If you then fit the pipeline again with the same hyperparameters, Scikit-Learn will just load the cached transformers.
+> [!tip] **If fitting the pipeline transformers is computationally expensive**...
+>  You can set the pipeline’s `memory` parameter to the path of a **caching directory**: when you first fit the pipeline, Scikit-Learn will save the fitted transformers to this directory. If you then fit the pipeline again with the same hyperparameters, Scikit-Learn will just load the cached transformers.
 
 In total the grid search will explore 3×3 + 2×3 = 15 combinations of hyperparameter values, and it will train the pipeline 3 times per combination, since we are using 3-fold cross validation. This means there will be a grand total of 15 × 3 = 45 rounds of training! **It may take a while**...
 
 Once the search is complete, you can **get the best combination of parameters** like this:
+
 ```python
 grid_search.best_params_
 # {'preprocessing__geo__n_clusters': 15, 'random_forest__max_features': 6}
@@ -55,10 +59,13 @@ grid_search.best_params_
 # mmm... since `15` is the largest value tested for `n_clusters`, it may be worth running another search with larger values to see whether performance continues to improve.
 ```
 By default, `GridSearchCV` uses `refit=True`: after identifying the best hyperparameter combination, it **retrains the model on the entire training set**. You can access the best model like this:
+
 ```python
 best_model = grid_search.best_estimator_
 ```
+
 You can access the **evaluation scores** like this:
+
 ```python
 cv_res = pd.DataFrame(grid_search.cv_results_)
 cv_res.sort_values(by="mean_test_score", ascending=False, inplace=True)
@@ -78,6 +85,7 @@ n_clusters max_features split0 split1 split2 mean_test_rmse
 #randomized-search works much the same way as grid search, but instead of evaluating very possible combination, it **evaluates a fixed number of randomly selected combinations**. At each iteration, it samples a value for each hyperparameter and evaluates the resulting model using #cross-validation.
 
 For each hyperparameter, you must provide either a list of possible values, or a probability distribution:
+
 ```python
 from sklearn.model_selection import RandomizedSearchCV
 from scipy.stats import randint 
@@ -102,6 +110,7 @@ rnd_search.fit(features, labels)
 You will often **gain good insights on the problem** by inspecting the best models. 
 
 For example, some models can indicate the **relative importance of each attribute** for making accurate predictions:
+
 ```python
 final_model = rnd_search.best_estimator_ # includes preprocessing (`RandomForestRegressor`)
 feature_importances = final_model["random_forest"].feature_importances_
@@ -125,6 +134,7 @@ You should also **look at the specific errors** that your system makes, then try
 You should also evaluate fairness, ensuring that the model performs well not only on average but **across different groups** (e.g., urban vs. rural, rich vs. poor, etc.). This requires a **bias analysis on validation-set subsets**. If the model performs poorly for a particular group, it should be improved before deployment or restricted from making predictions for that group to avoid potential harm.
 ## Evaluate on the Test Set
 Once you have finished tweaking your models and have a system that performs sufficiently well, **retrieve the test set and use your full pipeline** (`final_model`) to transform the data and generate predictions. Then, evaluate the model's performance on these predictions.
+
 ```python
 X_test = test_set.drop("target", axis=1)
 y_test = test_set["target"].copy()
@@ -133,7 +143,9 @@ final_predictions = final_model.predict(X_test)
 final_rmse = root_mean_squared_error(y_test, final_predictions)
 print(final_rmse) # 41445.533268606625
 ```
+
 A single test-set score provides only a point estimate of the model's generalization error. To **measure the uncertainty of this estimate**, you can compute a #confidence-interval (e.g., 95%) using techniques such as #bootstrapping.
+
 ```python
 from scipy import stats
 
@@ -148,6 +160,7 @@ boot_result = stats.bootstrap([squared_errors], rmse,
 
 rmse_lower, rmse_upper = boot_result.confidence_interval # 39,521 to 43,702,
 ```
+
 If you did a lot of hyperparameter tuning, the performance will usually be slightly worse than what you measured using cross-validation. That’s because your system ends up fine-tuned to perform well on the validation data.
 
 >[!warning] You must **resist the temptation to tweak the hyperparameters** to make the numbers look good on the test set; the improvements would be unlikely to generalize to new data.
