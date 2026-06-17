@@ -9,6 +9,7 @@ Common transformations include:
 These transformations often make the distribution more symmetric and **closer to a Gaussian (bell-shaped) distribution**.
 ![[2-17.png]]
 
+> [!note] Bucketization
 > Another approach is **bucketization** (or binning), which divides a feature into discrete intervals (buckets). For example, replacing each value with its percentile rank creates a feature with an approximately uniform distribution. If bucket indices are treated as numerical values, scaling is usually unnecessary. Dividing by the number of buckets can normalize them to the 0–1 range.
 ## Handling Multimodal Distributions
 Features with **multiple peaks** (multimodal distributions) can benefit from **bucketization** as well. In this case, bucket IDs are often treated as categorical variables and encoded using techniques such as #one-hot-encoding. 
@@ -20,14 +21,17 @@ $$exp⁡(−γ(x−c)^2)$$
 -  $c$ is the center (e.g., a mode of the distribution).
 - $γ$ (gamma) controls how quickly similarity decreases with distance.
 
+> [!note] Radial Basis Function 
 > An RBF is any function that depends only on the distance between the input value and a fixed point.
 
 Using Scikit-Learn:
+
 ```python
 from sklearn.metrics.pairwise import rbf_kernel
 
 # Create a new Gaussian RBF feature measuring the similarity between a multimodal variable and one of it's modes (35)
 var1_similarity_35 = rbf_kernel(feature[["var1"]], [[35]], gamma=0.1)
 ```
+
 The resulting feature has values close to 1 near the chosen center and approaches 0 as values move away from it.
 ![[2-18.png]]

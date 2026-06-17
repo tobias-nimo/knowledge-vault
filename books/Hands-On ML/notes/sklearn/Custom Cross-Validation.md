@@ -1,5 +1,8 @@
 # Custom Cross-Validation
+#sklearn 
+
 Occasionally you need more control over the #cross-validation process than Scikit-Learn offers off the shelf. In those cases you can **implement it yourself**. The code below does roughly the same thing as `cross_val_score()`:
+
 ```python
 from sklearn.model_selection import StratifiedKFold
 from sklearn.base import clone
@@ -25,4 +28,5 @@ for train_index, test_index in skfolds.split(X_train, y_train):
     accuracy = n_correct / len(y_pred)
     print(accuracy)
 ```
+
 `StratifiedKFold` performs #stratified-sampling to produce folds with a representative ratio of each class. At each iteration the code clones the classifier, trains the clone on the training folds, predicts on the test fold, and outputs the ratio of correct predictions.

@@ -1,7 +1,9 @@
 # Scikit-Learn Custom Transformers
 #sklearn 
+
 ## Non-Trainable Transformers
 For custom transformations that **don’t require any training**, you just use `FunctionTransformer` with a function that takes a NumPy array as input and outputs the transformed array.
+
 ```python
 import numpy as np
 from sklearn.preprocessing import FunctionTransformer
@@ -45,6 +47,7 @@ In practice, custom transformers usually inherit from:
 - `BaseEstimator` → provides `get_params()` and `set_params()`, making the transformer compatible with hyperparameter tuning.
 
 For example, here’s a custom transformer that acts much like the `StandardScaler`:
+
 ```python
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.utils.validation import check_array, check_is_fitted
@@ -95,9 +98,9 @@ class StandardScalerClone(BaseEstimator, TransformerMixin):
 		return [f"x{i}_std" for i in range(self.n_features_in_)]
 ```
 
-> Pay attention to the comments below—they illustrate **key Scikit-Learn transformer conventions**. 
-> 
-> You can **check whether your custom estimator respects Scikit-Learn’s API** by passing an instance to `check_estimator()` from the `sklearn.utils.estimator_checks` package.
+> [!note] Notes
+> - Pay attention to the comments above—they illustrate **key Scikit-Learn transformer conventions**. 
+> - You can **check whether your custom estimator respects [[Scikit-Learn API]]** by passing an instance to `check_estimator()` from the `sklearn.utils.estimator_checks` package.
 ## A Practical Example
 A custom transformer can (and often does) **use other estimators in its implementation**.
 
@@ -136,6 +139,7 @@ similarities.round(2)
 # [0. , 0.96, 0. , 0.03, 0.04, 0. , 0. , 0. , 0.11, 0.35],
 # [0.34, 0. , 0.45, 0. , 0. , 0. , 0.01, 0.73, 0. , 0. ], ...])
 ```
+
 The following figure shows the 10 cluster centers found by k-means:
 ![[2-19.png]]
 

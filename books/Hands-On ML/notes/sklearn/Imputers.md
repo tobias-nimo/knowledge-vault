@@ -3,6 +3,7 @@
 
 Imputers are used to **replace missing values** in a dataset before training a model.
 ## Basic Usage
+
 ```python
 from sklearn.impute import SimpleImputer
 
@@ -15,6 +16,7 @@ imputer.fit(features_num)
 # Replace missing values using the learned medians  
 X = imputer.transform(features_num)
 ```
+
 Other available strategies are: 
 - the mean value (`strategy="mean"`), 
 - the most frequent value (`strategy="most_frequent"`), 

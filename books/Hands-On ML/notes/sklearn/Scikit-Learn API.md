@@ -13,7 +13,8 @@ All objects share a simple, consistent interface:
 - **Inspection**
 	Hyperparameters are accessible through public attributes (e.g., `imputer.strategy`), while learned parameters are stored in public attributes ending with an underscore (e.g., `imputer.statistics_`).
 
-> Remember: Scikit-Learn **estimators output NumPy arrays** (or sometimes SciPy sparse matrices) even when they are fed Pandas DataFrames as input.
+> [!note] Remember
+> Scikit-Learn **estimators output NumPy arrays** (or sometimes SciPy sparse matrices) even when they are fed Pandas DataFrames as input.
 ## Non-proliferation of Classes
 Datasets are represented using NumPy arrays or SciPy sparse matrices rather than custom dataset classes. Hyperparameters are ordinary Python values.
 ## Composition
