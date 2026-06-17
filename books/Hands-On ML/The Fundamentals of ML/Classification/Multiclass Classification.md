@@ -25,7 +25,7 @@ svm_clf.predict([some_digit]) # array(['5'], dtype=object) -> correct
 
 svm_clf.decision_function([some_digit])
 # array([[3.79, 0.73, 6.06, 8.3 , -0.29, 9.3 , 1.75, 2.77, 7.21, 4.82]])
-#  -> the highest score correspoids to the '5' class
+#  -> the highest score corresponds to the '5' class
 ```
 
 Now let's train an `SGDClassifier` instead. Since it's a binary algorithm that doesn't favor small training sets, Scikit-Learn falls back to **OvA**, training just 10 binary classifiers — so `decision_function()` returns one score per class:
@@ -40,7 +40,7 @@ sgd_clf.predict([some_digit]) # array(['3'], dtype='<U1') -> incorrect! errors h
 
 sgd_clf.decision_function([some_digit])
 # array([[-31893., -34420., -9531., 1824., -22320., -1386., -26189., -16148., -4604., -12051.]])
-# -> the highest score correspoids to the '3' class
+# -> the highest score corresponds to the '3' class
 ```
 
 >[!note] In case of a tie...

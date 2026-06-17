@@ -10,6 +10,7 @@ Turn raw source material (book/paper/course excerpts) into a note that matches t
 ## Workflow
 
 1. **Identify placement.** Notes live at `source/Topic/Subtopic/Note Title.md`, where `source` is `books/`, `papers/`, or `courses/`. Match the existing folder for the topic; create a new subfolder only when the topic clearly warrants one. Confirm the target path with the user if it's ambiguous.
+   - **Cross-cutting concept notes** (not tied to one chapter) go in a per-source `notes/` folder, grouped by category: `notes/concepts/` (e.g. `Sampling Bias.md`, `No Free Lunch Theorem.md`), `notes/sklearn/` (e.g. `MNIST.md`, `Imputers.md`), `notes/miscellaneous/`. These are the usual targets of `[[wiki-links]]` from chapter notes.
 2. **Read a sibling note first.** Before writing, read 1–2 existing notes in the same folder to match their depth, section granularity, and conventions. Styles are consistent across the vault but density varies by topic.
 3. **Distill, don't transcribe.** Paraphrase the source in the user's voice. Drop page numbers, figure-caption boilerplate, and footnote markers. Keep the technical substance, code, and key numbers.
 4. **Write in the style below.**
@@ -31,6 +32,7 @@ Turn raw source material (book/paper/course excerpts) into a note that matches t
 - Keep imports that aid clarity; trim plotting boilerplate to the essential lines and replace the rest with `plt.show()`.
 - Use inline `#` comments to annotate non-obvious lines. Avoid markdown backticks inside code comments (they don't render).
 - For REPL-style output that's a multi-line array, a plain (non-python) fenced block is acceptable — match `Performance Measures.md`.
+- **Don't re-dump shared dataset setup.** When a sibling note already defines the dataset/variables, import them with a pointer comment instead of repeating the `fetch_openml`/split boilerplate, e.g. `from my_datasets import X_train, y_train, some_digit # defined in ./performance-measures`.
 
 ### Math
 
@@ -40,7 +42,7 @@ Turn raw source material (book/paper/course excerpts) into a note that matches t
 ### Callouts and asides
 
 - `>` blockquote for a short remark, rule of thumb, or "remember" aside.
-- Obsidian callouts for emphasis: `>[!tip]`, `>[!warning]`. Use `[!warning]` for pitfalls/caveats, `[!tip]` for guidance and rules of thumb. A callout can have a title on the same line as the type.
+- Obsidian callouts for emphasis: `>[!tip]`, `>[!warning]`, `>[!note]`. Use `[!warning]` for pitfalls/caveats, `[!tip]` for guidance and rules of thumb, and `[!note]` for neutral asides or behavior remarks (e.g. tie-breaking rules). A callout can have a title on the same line as the type.
 
 ## Figures
 
