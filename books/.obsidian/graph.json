@@ -6,17 +6,46 @@
   "hideUnresolved": false,
   "showOrphans": true,
   "collapse-color-groups": true,
-  "colorGroups": [],
+  "colorGroups": [
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/The ML Landscape\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 14048348
+      }
+    },
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/End-to-End ML Project\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 14069084
+      }
+    },
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/Classification\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 11392604
+      }
+    },
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/Training Models\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 6084188
+      }
+    }
+  ],
   "collapse-display": true,
-  "showArrow": false,
+  "showArrow": true,
   "textFadeMultiplier": 0,
-  "nodeSizeMultiplier": 1,
-  "lineSizeMultiplier": 1,
+  "nodeSizeMultiplier": 1.26017708333333,
+  "lineSizeMultiplier": 1.49,
   "collapse-forces": true,
-  "centerStrength": 0.518713248970312,
-  "repelStrength": 10,
+  "centerStrength": 0.498713248970312,
+  "repelStrength": 12.4470486111111,
   "linkStrength": 1,
-  "linkDistance": 250,
+  "linkDistance": 175,
   "scale": 1,
   "close": false
 }

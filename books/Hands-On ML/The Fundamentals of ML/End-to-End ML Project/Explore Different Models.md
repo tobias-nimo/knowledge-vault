@@ -2,7 +2,7 @@
 The goal at this stage is to try a variety of models from different categories of ML algorithms (e.g., linear and polynomial regression, support vector machines with different kernels, ensemble methods, and possibly neural networks), **without spending too much time tuning hyperparameters**. The objective is to **shortlist of the most promising candidates**—typically two to four models—for further optimization.
 
 > [!note] Remember from previous step:
-> - You chose **RMSE** as your performance metric — [[Look at the Big Picture]]
+> - You chose #RMSE as your performance metric — [[Look at the Big Picture]]
 > - You built a **preprocessing pipeline** — [[Prepare the Data]]
 ## Train and Evaluate on the Training Set
 Suppose you decide to start with a simple **linear regression** model:

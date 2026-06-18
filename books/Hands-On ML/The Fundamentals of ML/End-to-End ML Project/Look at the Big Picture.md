@@ -11,7 +11,7 @@ With a clear understanding of the objective and the current solution, you can be
 ## Select a Performance Measure
 Your next step is to select a performance measure. 
 
-For example, a typical performance measure for regression problems is the **root mean squared error** (RMSE).
+For example, a typical performance measure for regression problems is the **root mean squared error** ( #RMSE ).
 $$
 \mathrm{RMSE}(X,y,h)=\sqrt{\frac{1}{m}\sum_{i=1}^{m}\left(h(x^{(i)})-y^{(i)}\right)^2}
 $$
