@@ -17,7 +17,7 @@ $$
 - $\mathbf{x}$ is the instance's **feature vector**, containing $x_0$ to $x_n$, with $x_0$ always equal to 1.
 - $\boldsymbol{\theta} \cdot \mathbf{x}$ is the dot product $\theta_0 x_0 + \theta_1 x_1 + \cdots + \theta_n x_n$.
 
-## Training: minimizing the MSE
+## Training: Minimizing the MSE
 Training a model means **setting its parameters so that the model best fits the training set**. To do that, you first need a measure of how well (or poorly) it fits the data.
 
 The most common performance measure for a regression model is the #RMSE (root mean squared error). So training a linear regression model means **finding the $\boldsymbol{\theta}$ that minimizes the RMSE**. In practice, it's **simpler to minimize** the #MSE (mean squared error), and it leads to the same result — the value that minimizes a positive function also minimizes its square root.
@@ -40,12 +40,15 @@ See [[Normal Equation]] for the full derivation.
 >- A good **performance metric** is as close as possible to the final business objective.
 >- A good **training loss** is easy to optimize and strongly correlated with that metric.
 >
->For example, classifiers are often trained with the #log-loss but evaluated with [[Performance Measures|precision/recall]] — the log loss is easy to minimize, and doing so usually improves precision/recall.
+>For example, classifiers are often trained with the #log-loss but evaluated with #precision / #recall — the log loss is easy to minimize, and doing so usually improves precision/recall.
 
+## Using Scikit-Learn
 Performing linear regression with #sklearn is straightforward — it computes the parameters for you and exposes them as `intercept_` (the bias term $\theta_0$) and `coef_` (the feature weights):
 
 ```python
 import numpy as np
+
+# generate synthetic dataset
 rng = np.random.default_rng(seed=42)
 m = 200 # number of instances
 X = 2 * rng.random((m, 1)) # column vector
@@ -60,7 +63,19 @@ lin_reg.fit(X, y)
 
 lin_reg.intercept_, lin_reg.coef_ # (array([3.69084138]), array([[3.32960458]]))
 
-lin_reg.predict(X_new)
+X_new = np.array([[0], [2]])
+y_predict = lin_reg.predict(X_new)
 # array([[ 3.69084138],
 #        [10.35005055]])
 ```
+
+```python
+import matplotlib.pyplot as plt
+
+# plot the fitted line
+plt.plot(X_new, y_predict, "r-", label="Predictions")
+plt.plot(X, y, "b.")
+[...] # beautify the figure: add labels, axis, grid, and legend
+plt.show()
+```
+![[4-2.png]]

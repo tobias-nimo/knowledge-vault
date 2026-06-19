@@ -7,6 +7,9 @@ $$
 - $\mathbf{X}$ is the matrix of all feature vectors, with one row per instance (and the bias column $x_0 = 1$).
 - $\mathbf{y}$ is the vector of target values $y^{(1)}$ to $y^{(m)}$.
 ## Where it comes from
+$$
+\text{MSE}(\boldsymbol{\theta}) = \frac{1}{m} \sum_{i=1}^{m} \left( \boldsymbol{\theta}^\intercal \mathbf{x}^{(i)} - y^{(i)} \right)^2
+$$
 Stacking all $m$ instances, the predictions are $\hat{\mathbf{y}} = \mathbf{X}\boldsymbol{\theta}$, so the MSE is just the squared length of the **residual vector** $\mathbf{X}\boldsymbol{\theta} - \mathbf{y}$:
 $$
 \text{MSE}(\boldsymbol{\theta}) = \frac{1}{m} \lVert \mathbf{X}\boldsymbol{\theta} - \mathbf{y} \rVert^2 = \frac{1}{m} (\mathbf{X}\boldsymbol{\theta} - \mathbf{y})^\intercal (\mathbf{X}\boldsymbol{\theta} - \mathbf{y})
