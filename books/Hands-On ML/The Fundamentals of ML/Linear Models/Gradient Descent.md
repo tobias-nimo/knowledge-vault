@@ -165,9 +165,9 @@ You can use #sklearn `SGDRegressor`, which defaults to optimizing the MSE, to pe
 from sklearn.linear_model import SGDRegressor
 
 sgd_reg = SGDRegressor(
-	max_iter=1000,        # max 1000 epochs...
-	tol=1e-5,             # or stop if loss drops < 1e-5...
-	n_iter_no_change=100, # but over 100 epochs;
+	max_iter=1000,        # max 1000 epochs
+	tol=1e-5,
+	n_iter_no_change=100,
 	penalty=None,         # no regularization
 	eta0=0.01,            # initial learning rate 0.01 
 	random_state=42
@@ -177,6 +177,11 @@ sgd_reg.fit(X, y.ravel())  # y.ravel() because fit() expects 1D targets
 
 sgd_reg.intercept_, sgd_reg.coef_  # (array([3.68899733]), array([3.33054574]))
 ```
+
+Training doesn't always run the full `max_iter` epochs. SGD stops early once the loss fails to improve by at least `tol` for `n_iter_no_change` consecutive epochs. Setting `tol=None` disables this check, forcing all `max_iter` epochs.
+
+> [!tip] #early-stopping
+> With `SGDRegressor`, set `early_stopping=True` to hold out a `validation_fraction` of the data and monitor the **validation score** instead of the training loss. Training then stops once that score stops improving by at least `tol` for `n_iter_no_change` epochs — i.e. at the bottom of the [[Learning Curves|validation curve]], just before it turns back up. This is a form of #regularization: it prevents the model from overfitting the training data.
 
 ### Mini-Batch GD
 At each step #mini-batch-gradient-descent computes the gradient on a **small random set of instances** called a *mini-batch*.
