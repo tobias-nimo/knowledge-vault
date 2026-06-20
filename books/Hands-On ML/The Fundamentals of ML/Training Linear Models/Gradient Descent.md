@@ -166,8 +166,8 @@ from sklearn.linear_model import SGDRegressor
 
 sgd_reg = SGDRegressor(
 	max_iter=1000,        # max 1000 epochs...
-	tol=1e-5,             # or stop if loss drops < 1e-5 (tol)...
-	n_iter_no_change=100, # and over 100 epochs;
+	tol=1e-5,             # or stop if loss drops < 1e-5...
+	n_iter_no_change=100, # but over 100 epochs;
 	penalty=None,         # no regularization
 	eta0=0.01,            # initial learning rate 0.01 
 	random_state=42
