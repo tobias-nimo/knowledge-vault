@@ -29,6 +29,9 @@ $$
 - $m$ is the number of training instances.
 - $\mathbf{x}^{(i)}$ and $y^{(i)}$ are the feature vector and target of the $i^{\text{th}}$ instance.
 
+> [!note] Assumptions
+> Linear regression trained using MSE assumes the data is **purely linear** and that the noise is **Gaussian** (e.g. outliers are exponentially rare). The more wrong this assumption is, the more biased the model will be.
+
 To find the $\boldsymbol{\theta}$ that minimizes the MSE, there's a **closed-form solution** — a formula that gives the result directly, without using [[Gradient Descent]]:
 $$
 \hat{\boldsymbol{\theta}} = \left( \mathbf{X}^\intercal \mathbf{X} \right)^{-1} \mathbf{X}^\intercal \mathbf{y}
