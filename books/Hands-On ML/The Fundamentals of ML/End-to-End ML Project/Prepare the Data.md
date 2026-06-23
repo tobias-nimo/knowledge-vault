@@ -14,7 +14,7 @@ labels = train_set["target"].copy()
 Most machine learning algorithms cannot work with **missing features**, so you’ll need to take care of these. You have three options to fix this:
 1. Get rid of the instances.
 2. Get rid of the whole attribute.
-3. Set the missing values to some value (zero, the mean, the median, etc.). This is
+3. Set the #missing-values to some value (zero, the mean, the median, etc.). This is
 called imputation.
 
 ```python
