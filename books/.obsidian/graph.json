@@ -29,10 +29,24 @@
       }
     },
     {
-      "query": "path:\"Hands-On ML/The Fundamentals of ML/Training Models\"  ",
+      "query": "path: \"Hands-On ML/The Fundamentals of ML/Linear Models\"  ",
       "color": {
         "a": 1,
         "rgb": 6084188
+      }
+    },
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/Decision Trees\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 6084269
+      }
+    },
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/Ensemble Learning\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 6073814
       }
     }
   ],
