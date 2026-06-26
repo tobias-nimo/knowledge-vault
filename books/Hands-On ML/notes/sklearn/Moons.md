@@ -1,5 +1,5 @@
 # Moons Dataset
-The **moons dataset** is a #sklearn toy dataset for **binary classification** in which the data points are shaped as **two interleaving crescent moons**. Because the two classes are not linearly separable, it's a handy example for testing models that can carve out nonlinear decision boundaries.
+The **moons dataset** is a Scikit-Learn toy dataset for **binary classification** in which the data points are shaped as **two interleaving crescent moons**. Because the two classes are not linearly separable, it's a handy example for testing models that can carve out nonlinear decision boundaries.
 
 You generate it on the fly with `make_moons`:
 

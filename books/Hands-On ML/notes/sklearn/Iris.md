@@ -3,7 +3,7 @@ The **iris dataset** is a famous dataset containing the **sepal and petal length
 
 ![[4-23.png]]
 
-You can load it from #sklearn with `load_iris`:
+You can load it from Scikit-Learn with `load_iris`:
 
 ```python
 from sklearn.datasets import load_iris

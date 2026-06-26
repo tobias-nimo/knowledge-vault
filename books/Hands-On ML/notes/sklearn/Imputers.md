@@ -1,6 +1,4 @@
 # Scikit-Learn Imputers
-#sklearn 
-
 Imputers are used to **replace missing values** in a dataset before training a model.
 ## Basic Usage
 

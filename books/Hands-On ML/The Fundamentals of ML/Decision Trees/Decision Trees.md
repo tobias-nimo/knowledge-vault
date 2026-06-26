@@ -4,7 +4,7 @@ A #decision-tree is a versatile algorithm that can perform both classification a
 - [[Regression Tasks]]
 
 > [!note] Binary trees only
-> #sklearn uses the **CART** algorithm, which produces only **binary trees** — split nodes always have exactly two children (yes/no questions). Other algorithms such as **ID3** can produce nodes with more than two children.
+> Scikit-Learn uses the **CART** algorithm, which produces only **binary trees** — split nodes always have exactly two children (yes/no questions). Other algorithms such as **ID3** can produce nodes with more than two children.
 
 ## Regularization Hyperparameters
 A decision tree is a **nonparametric model**: not because it has no parameters, but because their *number is not fixed before training*, so the structure is free to stick to the data. A **parametric model** (like a linear model) has a predetermined number of parameters, limiting its freedom (less overfitting, but more risk of underfitting).
@@ -14,7 +14,7 @@ So, decision trees make **very few assumptions** about the data. Left unconstrai
 > [!warning] Regularization is a must!
 > Decision trees are prone to overfitting the data — default hyperparameters badly overfit.
 
-To regularize, restrict the tree's freedom during training. The key #regularization knobs in #sklearn:
+To regularize, restrict the tree's freedom during training. The key #regularization knobs in Scikit-Learn:
 - `max_depth` — maximum depth (default `None` = unlimited). 
 - `max_features` — max features evaluated for splitting at each node. Great for high-dimensional data.
 - `max_leaf_nodes` — maximum number of leaf nodes.

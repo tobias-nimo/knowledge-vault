@@ -57,7 +57,7 @@ You should now have a better understanding of the kind of data you’re dealing 
 Before exploring the data any further, you should create a test set, set it aside, and **never look at it during development**! Otherwise, you risk introducing [[Data Snooping Bias]].
 
 > [!note]
-> [[Scikit-Learn API]] provides a number of splitter classes in the `sklearn.model_selection` package that implement various strategies to split your dataset into a training set and a test set. #sklearn 
+> [[Scikit-Learn API]] provides a number of splitter classes in the `sklearn.model_selection` package that implement various strategies to split your dataset into a training set and a test set.
 
 ### Random Sampling
 Creating a test set is theoretically simple; **pick some instances randomly**, typically 20% of the dataset (or less if your dataset is very large), and set them aside:

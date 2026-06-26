@@ -1,6 +1,4 @@
 # Custom Cross-Validation
-#sklearn 
-
 Occasionally you need more control over the #cross-validation process than Scikit-Learn offers off the shelf. In those cases you can **implement it yourself**. The code below does roughly the same thing as `cross_val_score()`:
 
 ```python

@@ -1,6 +1,4 @@
 # Scikit-Learn API Design
-#sklearn
-
 [Scikit-Learn’s API](https://scikit-learn.org/stable/) is remarkably well designed. Its main design principles are:
 ## Consistency
 All objects share a simple, consistent interface:

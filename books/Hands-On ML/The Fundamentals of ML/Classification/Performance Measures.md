@@ -181,7 +181,7 @@ You now have a 90% precision classifier! It's actually **easy to reach almost an
 
 >[!tip] If someone says "Let's reach 99% precision", you should ask, "**At what recall?**"
 
-> [!note] #sklearn  offers two classes that make adjusting the threshold easier:
+> [!note] Scikit-Learn offers two classes that make adjusting the threshold easier:
 > - [`FixedThresholdClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.FixedThresholdClassifier.html) wraps a binary classifier and lets you set the threshold manually.
 > - [`TunedThresholdClassifierCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html) uses k-fold cross validation to automatically find the optimal threshold for a given metric (by default, it tries to find the threshold that maximizes the model’s balanced accuracy — the average of each class’s recall).
 ## ROC Curve

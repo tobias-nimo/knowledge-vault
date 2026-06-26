@@ -46,7 +46,7 @@ See [[Normal Equation]] for the full derivation.
 >For example, classifiers are often trained with the #log-loss but evaluated with #precision / #recall — the log loss is easy to minimize, and doing so usually improves precision/recall.
 
 ## Using Scikit-Learn
-Performing linear regression with #sklearn is straightforward — it computes the parameters for you and exposes them as `intercept_` (the bias term $\theta_0$) and `coef_` (the feature weights):
+Performing linear regression with Scikit-Learn is straightforward — it computes the parameters for you and exposes them as `intercept_` (the bias term $\theta_0$) and `coef_` (the feature weights):
 
 ```python
 import numpy as np

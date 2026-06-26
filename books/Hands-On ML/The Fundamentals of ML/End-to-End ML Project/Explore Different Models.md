@@ -122,7 +122,7 @@ Cross-validation not only provides a real and **robust performance measure**, bu
 
 > [!warning] The downside of cross-validation is that the model must be trained multiple times, which can become **computationally expensive** for large datasets or complex models.
 ## Try a More Powerful Model
-Next, let's train a **random forest** model:
+Next, let's train a #random-forest model:
 
 ```python
 from sklearn.ensemble import RandomForestRegressor

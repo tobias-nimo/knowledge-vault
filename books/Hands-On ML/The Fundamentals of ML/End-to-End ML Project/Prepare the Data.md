@@ -144,7 +144,8 @@ features_num_std = std_scaler.fit_transform(features_num)
 > [!note]
 > Always remember to **fit scalers on the training set only** to avoid data leakage. After fitting, use `transform()` on the validation set, test set, and new data. With `MinMaxScaler`, values outside the training range may be scaled outside the target range; set `clip=True` to prevent this.
 
-> [!tip] Check this notes about **[[Handling Non-Symmetrical Distributions]] before scaling**.
+> [!tip] 
+> Check this notes about [[Handling Non-Symmetrical Distributions]] before scaling.
 ### Transforming the Target Variable
 Sometimes the target variable also requires transformation. For example, if the target has a heavy-tailed distribution, applying a logarithmic transformation may improve model performance.
 
@@ -166,7 +167,7 @@ predictions = model.predict(X_test)
 
 This is usually safer and less error-prone than manually transforming and inverse-transforming the target values.
 ## Custom Transformers
-Although Scikit-Learn provides many useful transformers, you will occasionally need to **write your own** [[Custom Transformers]] for specific tasks.
+Although Scikit-Learn provides many useful transformers, you will occasionally need to **write your own** [[Custom Transformers|custom transformers]] for specific tasks.
 
 > [!warning] Remember
 > Transformers must never change the number of rows in a dataset!

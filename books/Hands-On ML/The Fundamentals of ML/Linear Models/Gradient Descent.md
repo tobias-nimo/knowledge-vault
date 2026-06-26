@@ -159,7 +159,7 @@ By convention each round of $m$ iterations is an #epoch. Where batch GD iterated
 > 
 > Note that random sampling can draw some instances multiple times while skipping others in an epoch, while sequentially iterating through a shuffled dataset avoids this but is usually no better in practice.
 
-You can use #sklearn `SGDRegressor`, which defaults to optimizing the MSE, to perform **linear regression using SGD**:
+You can use Scikit-Learn `SGDRegressor`, which defaults to optimizing the MSE, to perform **linear regression using SGD**:
 
 ```python
 from sklearn.linear_model import SGDRegressor

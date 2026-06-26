@@ -163,4 +163,5 @@ rmse_lower, rmse_upper = boot_result.confidence_interval # 39,521 to 43,702,
 
 If you did a lot of hyperparameter tuning, the performance will usually be slightly worse than what you measured using cross-validation. That’s because your system ends up fine-tuned to perform well on the validation data.
 
->[!warning] You must **resist the temptation to tweak the hyperparameters** to make the numbers look good on the test set; the improvements would be unlikely to generalize to new data.
+>[!warning] 
+> You must **resist the temptation to tweak the hyperparameters** to make the numbers look good on the test set; the improvements would be unlikely to generalize to new data.
