@@ -95,7 +95,7 @@ The simplest alternative is to use the row index as the identifier. However, thi
 
 If these conditions cannot be guaranteed, you should build an identifier from one or more stable features that uniquely identify each instance.
 ### Stratified Sampling
-So far, we have considered purely random sampling methods. This generally works well when the dataset is large enough (especially relative to the number of attributes). However, **with smaller datasets, random sampling may introduce significant [[Sampling Bias]]**.
+So far, we have considered purely random sampling methods. This generally works well when the dataset is large enough (especially relative to the number of attributes). However, with smaller datasets, random sampling may introduce significant [[Sampling Bias|sampling bias]].
 
 To reduce this risk, use #stratified-sampling. This method divides the population into homogeneous subgroups, called *strata*, and samples the appropriate proportion of instances from each stratum. This helps ensure that the train and test sets remain representative of the original dataset.
 

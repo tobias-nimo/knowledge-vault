@@ -12,7 +12,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
 
 from my_pipelines import preprocessing # defined in ./prepare-the-data
-from my_datafranes import features, labels # defined in ./prepare-the-data
+from my_dataframes import features, labels # defined in ./prepare-the-data
 
 # train the model
 lin_reg = make_pipeline(preprocessing, LinearRegression())
@@ -120,7 +120,8 @@ In this case, the training error is extremely low (0.0) while the validation err
 
 Cross-validation not only provides a real and **robust performance measure**, but also a **measure of uncertainty** in that estimate (the standard deviation).
 
-> [!warning] The downside of cross-validation is that the model must be trained multiple times, which can become **computationally expensive** for large datasets or complex models.
+> [!warning] 
+> The downside of cross-validation is that the model must be trained multiple times, which can become **computationally expensive** for large datasets or complex models.
 ## Try a More Powerful Model
 Next, let's train a #random-forest model:
 
