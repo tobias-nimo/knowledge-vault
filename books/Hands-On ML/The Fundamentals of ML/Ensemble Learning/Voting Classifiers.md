@@ -6,12 +6,12 @@ Suppose you've trained a few diverse models — logistic regression, an SVM, a r
 ![[6-1.png]]
 > Training diverse classifiers on the same training set.
 
-Simply having them vote often produces a classifier that beats every individual one. When the prediction is the plain majority vote, it's called hard voting.
+Simply having them vote often produces a classifier that beats every individual one. When the prediction is the plain majority vote, it's called #hard-voting.
 
 ![[6-2.png]]
 > A hard voting classifier picks the class with the most votes.
 
-Even if each classifier is a #weak-learner (only slightly better than random guessing), the ensemble can be a #strong-learner (high accuracy) — *provided there are enough of them and they're diverse enough* (they focus on different aspects of the data and make different kinds of errors).
+Even if each classifier is a weak learner (only slightly better than random guessing), the ensemble can be a strong learner (high accuracy) — *provided there are enough of them and they're diverse enough* (they focus on different aspects of the data and make different kinds of errors).
 
 >[!tip] Use independent predictors!
 > Ensembles work best when predictors are as **independent** as possible. 
