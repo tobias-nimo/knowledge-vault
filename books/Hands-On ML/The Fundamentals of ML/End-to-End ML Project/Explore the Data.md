@@ -14,6 +14,7 @@ exploration_set = train_set.copy()
 # If the training set is large, sample a smaller set for faster analysis
 exploration_set = train_set.sample(frac=0.1, random_state=42)
 ```
+
 ## Visualizing Geographical Data
 If the dataset contains geographical features such as **latitude and longitude**, creating a scatter plot is a good way to visualize the data.
 
@@ -24,6 +25,7 @@ exploration_set.plot(
 )
 plt.show()
 ```
+
 ![[2-12.png]]
 
 Our brains are very good at spotting patterns in pictures, but you may need to **play around with visualization parameters** to make the patterns stand out...
@@ -37,7 +39,9 @@ exploration_set.plot(
 )
 plt.show()
 ```
+
 ![[2-13.png]]
+
 ## Look for Correlations
 If the dataset is not too large, you can easily compute the standard correlation coefficient between every pair of numerical attributes using the `corr()` method:
 
@@ -67,6 +71,7 @@ Looking at the **correlation scatterplots**, you may identify attributes that ar
 
 >[!note] Note 
 >The correlation coefficient only measures linear correlations (“as $x$ goes up, $y$ generally goes up/down”). It may completely miss out on nonlinear relationships (e.g., “as $x$ approaches 0, $y$ generally goes up”).
+
 ## Experiment with Attribute Combinations
 One last thing you may want to do before preparing the data for machine learning algorithms is to **try out new features by combining existing attributes**.
 

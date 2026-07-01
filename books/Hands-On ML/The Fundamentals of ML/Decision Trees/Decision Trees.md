@@ -42,6 +42,7 @@ tree_clf2 = DecisionTreeClassifier(min_samples_leaf=5, random_state=42)
 tree_clf1.fit(X_moons, y_moons)
 tree_clf2.fit(X_moons, y_moons)
 ```
+
 ![[5-3.png]]
 > Decision boundaries of an unregularized tree (left, overfitting) and a regularized tree with `min_samples_leaf=5` (right, generalizes better).
 
@@ -61,6 +62,7 @@ tree_clf2.score(X_moons_test, y_moons_test)  # 0.92 (regularized)
 ```
 
 ## Limitations
+
 ### Sensitivity to Axis Orientation
 Trees love **orthogonal decision boundaries** (every split is perpendicular to an axis), which makes them **sensitive to the data's orientation**. 
 
@@ -90,8 +92,10 @@ tree_clf_pca.fit(X_iris_rotated, y_iris)
 
 [...] # plot the decision boundaries
 ```
+
 ![[5-8.png]]
 > After #standardization  and #PCA rotation, the tree fits the iris dataset well using essentially a single feature $z_1$.
+
 ### High Variance
 The main issue with trees is high variance: **small changes to the hyperparameters or data can produce very different models**. Because Scikit-Learn's training is stochastic (it randomly selects the features to evaluate at each node), even retraining on the *exact same data* can yield a very different tree — unless you set `random_state`.
 

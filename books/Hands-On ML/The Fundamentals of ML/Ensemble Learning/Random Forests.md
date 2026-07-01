@@ -55,6 +55,7 @@ tree_clf = DecisionTreeClassifier(
 A forest of such trees is an *extremely randomized trees* ensemble. This increases tree diversity even further, trading **more bias for lower variance**, so extra-trees can outperform regular random forests when the latter tend to overfit, especially on noisy or high-dimensional datasets. 
 
 They're also **much faster to train** because searching for the optimal threshold is one of the most expensive parts of growing a decision tree, and extra-trees avoid that search.
+
 ## Feature Importance
 Another strength of random forests is that they make it easy to **estimate the relative importance of each feature**.
 

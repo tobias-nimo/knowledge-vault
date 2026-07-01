@@ -1,4 +1,5 @@
 # Scikit-Learn Custom Transformers
+
 ## Non-Trainable Transformers
 For custom transformations that **don’t require any training**, you just use `FunctionTransformer` with a function that takes a NumPy array as input and outputs the transformed array.
 
@@ -34,6 +35,7 @@ ratio_transformer = FunctionTransformer(lambda X: X[:, [0]] / X[:, [1]])
 
 ratio_transformer.transform(np.array([[1., 2.], [3., 4.]])) # array([[0.5 ], [0.75]])
 ```
+
 ## Trainable Transformers
 For custom trainable transformers that learn some parameters in the `fit()` method and use them later in the `transform()` method, you need to **write a custom class** implementing:
 - `fit()`
@@ -99,6 +101,7 @@ class StandardScalerClone(BaseEstimator, TransformerMixin):
 > [!note] Notes
 > - Pay attention to the comments above—they illustrate **key Scikit-Learn transformer conventions**. 
 > - You can **check whether your custom estimator respects [[Scikit-Learn API]]** by passing an instance to `check_estimator()` from the `sklearn.utils.estimator_checks` package.
+
 ## A Practical Example
 A custom transformer can (and often does) **use other estimators in its implementation**.
 
@@ -139,6 +142,7 @@ similarities.round(2)
 ```
 
 The following figure shows the 10 cluster centers found by k-means:
+
 ![[2-19.png]]
 
 

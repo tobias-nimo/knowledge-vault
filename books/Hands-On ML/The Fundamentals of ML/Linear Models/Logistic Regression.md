@@ -9,6 +9,7 @@ The logistic $\sigma(\cdot)$ is a **sigmoid function** (i.e. S-shaped) that outp
 $$
 \sigma(t) = \frac{1}{1 + \exp(-t)}
 $$
+
 ![[4-22.png]]
 
 Once the model has estimated the probability $\hat{p}$ that an instance belongs to the positive class, the prediction $\hat{y}$ is straightforward:
@@ -20,6 +21,7 @@ $$
 \end{cases}
 $$
 Notice that $\sigma(t) < 0.5$ when $t < 0$ and $\sigma(t) \ge 0.5$ when $t \ge 0$, so with the default 50% threshold the model predicts **1 if $\boldsymbol{\theta}^{\!\top}\mathbf{x}$ is positive and 0 if it is negative**.
+
 ## Training: Minimizing the Log Loss
 The objective of training is to set $\boldsymbol{\theta}$ so the model estimates high probabilities for positive instances ($y = 1$) and low probabilities for negative instances ($y = 0$). For a single training instance, this is captured by:
 $$
@@ -53,6 +55,7 @@ $$
 \end{bmatrix}
 $$
 From here, plug the gradient vector into batch GD (or feed one instance at a time for SGD, a mini-batch for mini-batch GD).
+
 ## Using Scikit-Learn
 Let's use the [[Iris|Iris dataset]] to build a classifier to **detect *Iris virginica* based only on the petal width** feature:
 
@@ -95,6 +98,7 @@ plt.plot(X_new, y_proba[:, 1], "g-", label="Iris virginica proba")
 plt.plot([decision_boundary, decision_boundary], [0, 1], "k:", label="Decision boundary")
 plt.show()
 ```
+
 ![[4-24.png]]
 
 The decision boundary is at around 1.6 cm, where both probabilities equal 50%. Above it the model predicts virginica, below it predicts not — even when it isn't very confident around ~1 and ~2 cm.
@@ -132,6 +136,7 @@ contour = plt.contour(x0, x1, zz, cmap=plt.cm.brg)
 [...]
 plt.show()
 ```
+
 ![[4-25.png]]
 > The dashed line marks the 50% decision boundary where $\theta_0 + \theta_1 x_1 + \theta_2 x_2 = 0$; each parallel line marks a fixed probability, from 15% to 90%.
 

@@ -6,6 +6,7 @@ $$
 - $\hat{\boldsymbol{\theta}}$ is the value of $\boldsymbol{\theta}$ that minimizes the cost function.
 - $\mathbf{X}$ is the matrix of all feature vectors, with one row per instance (and the bias column $x_0 = 1$).
 - $\mathbf{y}$ is the vector of target values $y^{(1)}$ to $y^{(m)}$.
+
 ## Where it comes from
 $$
 \text{MSE}(\boldsymbol{\theta}) = \frac{1}{m} \sum_{i=1}^{m} \left( \boldsymbol{\theta}^\intercal \mathbf{x}^{(i)} - y^{(i)} \right)^2

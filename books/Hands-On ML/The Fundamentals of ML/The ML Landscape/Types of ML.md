@@ -7,4 +7,5 @@ There are so many different types of machine learning systems that it is useful 
 These criteria are not exclusive; you can combine them in any way you like. For example, a state-of-the-art spam filter may learn on the fly using a deep neural network model trained using human-provided examples of spam and ham; this makes it an online, model-based, supervised learning system.
 
 The following picture summarizes the various classifications of ML systems:
+
 ![[1-20.png]]

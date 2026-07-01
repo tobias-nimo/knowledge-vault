@@ -2,6 +2,7 @@
 Whereas binary classifiers distinguish between two classes, #multiclass classifiers (also called *multinomial classifiers*) can distinguish between **more than two classes**.
 
 Some Scikit-Learn classifiers (e.g., `LogisticRegression`, `RandomForestClassifier`, and `GaussianNB`) **handle multiple classes natively**. Others are **strictly binary** (e.g., `SGDClassifier` and `SVC`). Still, you can combine several binary classifiers to perform multiclass classification using one of two strategies.
+
 ## OvA and OvO
 The #one-versus-all (OvA) strategy — also called *one-versus-the-rest* (OvR) — trains **one binary classifier per class**. To classify the [[MNIST]] digits into 10 classes, you train a 0-detector, a 1-detector, a 2-detector, and so on. To classify an image, you get the decision score from each classifier and **select the class whose classifier outputs the highest score**.
 

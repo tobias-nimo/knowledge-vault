@@ -1,4 +1,5 @@
 # Launch, Monitor, and Maintain your System
+
 ## Deployment
 First, you need to **save the model** you trained. You can use `joblib` for this:
 
@@ -33,15 +34,18 @@ predictions = final_model_reloaded.predict(new_data)
 ```
 
 A more flexible option is to wrap the model in a dedicated **web service** queried through a REST-API.
+
 ![[2-21.png]]
 
 Another popular strategy is to **deploy to the cloud** (e.g., Google's Vertex-AI). This gives you a web service that handles load balancing and scaling for you.
+
 ## Monitoring
 Deployment is not the end of the story: you need **monitoring code that checks live performance** at regular intervals and triggers alerts when it drops. Performance can degrade suddenly (e.g., a infrastructure failures or broken data pipelines) or slowly and unnoticed, often due to #data-drift: real-world data gradually changes and becomes different from the data used during training.
 
 How you monitor performance depends on the task:
 - sometimes it can be inferred from **business metrics**
 - other times it requires **human evaluation**.
+
 ## Maintenance
 If the data keeps evolving, you must **update your datasets and retrain regularly**, automating the process as much as possible.
 
@@ -49,7 +53,8 @@ You should also **monitor input data quality**, since a poor-quality signal (e.g
 
 Finally, **keep backups** of every model and dataset version, with the tooling to **roll back quickly** if a new model or dataset fails. Backups also let you compare new models against previous ones and evaluate any model against any previous dataset.
 
-> [!note] As you can see, ML involves a lot of infrastructure. This broad topic is called #MLOps (ML Operations).
+> [!note] ML Operations
+> As you can see, ML involves a lot of infrastructure. This broad topic is called #MLOps.
 
 
 

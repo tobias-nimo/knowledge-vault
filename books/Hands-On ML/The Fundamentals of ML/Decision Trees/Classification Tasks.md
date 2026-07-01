@@ -38,6 +38,7 @@ export_graphviz(
 )
 Source.from_file("iris_tree.dot")
 ```
+
 ![[5-1.png]]
 > The iris decision tree. To classify a flower, start at the **root node** (depth 0) and follow the questions down until you reach a **leaf node**, where the `class` attribute indicates the predicted class.
 

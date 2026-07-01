@@ -11,6 +11,7 @@ m = 200 # number of instances
 X = 6 * rng.random((m, 1)) - 3
 y = 0.5 * X ** 2 + X + 2 + rng.standard_normal((m, 1))
 ```
+
 ![[4-12.png]]
 
 Use Scikit-Learn's `PolynomialFeatures` class to transform the training data, adding the square of each feature as a new feature — here there is just one feature:
@@ -37,6 +38,7 @@ lin_reg.fit(X_poly, y)
 lin_reg.intercept_, lin_reg.coef_
 # (array([2.00540719]), array([[1.11022126, 0.50526985]]))
 ```
+
 ![[4-13.png]]
 
 Not bad: the model estimates $\hat{y} = 0.56 x_1^2 + 0.93 x_1 + 1.78$, when the original function was $y = 0.5 x_1^2 + 1.0 x_1 + 2.0$ plus Gaussian noise.

@@ -2,6 +2,7 @@
 Let’s assume that you have a shortlist of promising models. The next step is to **fine-tune their hyperparameters** in order to improve performance.
 
 One approach is to adjust hyperparameters manually and evaluate the model repeatedly. However, this can be tedious and may prevent you from exploring many combinations.
+
 ## Grid Search
 Instead, you can use #grid-search: given a set of hyperparameter values, uses #cross-validation to evaluate each combination.
 
@@ -58,6 +59,7 @@ grid_search.best_params_
 
 # mmm... since `15` is the largest value tested for `n_clusters`, it may be worth running another search with larger values to see whether performance continues to improve.
 ```
+
 By default, `GridSearchCV` uses `refit=True`: after identifying the best hyperparameter combination, it **retrains the model on the entire training set**. You can access the best model like this:
 
 ```python
@@ -81,6 +83,7 @@ n_clusters max_features split0 split1 split2 mean_test_rmse
 10 6 43710 44163 44967 44280
 10 6 43710 44163 44967 44280
 ```
+
 ## Randomized Search
 #randomized-search works much the same way as grid search, but instead of evaluating very possible combination, it **evaluates a fixed number of randomly selected combinations**. At each iteration, it samples a value for each hyperparameter and evaluates the resulting model using #cross-validation.
 
@@ -106,6 +109,7 @@ rnd_search.fit(features, labels)
 > [!tip] As a **rule of thumb**:
 > - Use #grid-search when you have a small number of hyperparameters and a limited set of candidate values.
 > - Use #randomized-search when the search space is large or when you have a limited computational budget.
+
 ## Analyzing the Best Models
 You will often **gain good insights on the problem** by inspecting the best models. 
 
@@ -128,10 +132,13 @@ sorted(zip(feature_importances, features_names), reverse=True)
 (np.float64(3.0190221102670295e-05), 'cat__var5')]
 ```
 With this information, you may want to **try dropping some of the less useful features**.
+
 ### Error Analysis
 You should also **look at the specific errors** that your system makes, then try to understand why it makes them and what could fix the problem: adding extra features or getting rid of uninformative ones, cleaning up outliers, etc.
+
 ### Fairness Analysis
 You should also evaluate fairness, ensuring that the model performs well not only on average but **across different groups** (e.g., urban vs. rural, rich vs. poor, etc.). This requires a **bias analysis on validation-set subsets**. If the model performs poorly for a particular group, it should be improved before deployment or restricted from making predictions for that group to avoid potential harm.
+
 ## Evaluate on the Test Set
 Once you have finished tweaking your models and have a system that performs sufficiently well, **retrieve the test set and use your full pipeline** (`final_model`) to transform the data and generate predictions. Then, evaluate the model's performance on these predictions.
 

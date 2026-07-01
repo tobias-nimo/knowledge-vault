@@ -4,6 +4,7 @@ The goal at this stage is to try a variety of models from different categories o
 > [!note] Remember from previous step:
 > - You chose #RMSE as your performance metric — [[Look at the Big Picture]]
 > - You built a **preprocessing pipeline** — [[Prepare the Data]]
+
 ## Train and Evaluate on the Training Set
 Suppose you decide to start with a simple **linear regression** model:
 
@@ -49,6 +50,7 @@ tree_rmse = root_mean_squared_error(labels, predictions) # 0.0
 This result is not encouraging either. An RMSE of 0 on the training set strongly suggests that the model has **overfit** the data. #overfitting 
 
 How can you verify that a model is overfitting the training data? Well, the key idea is to **evaluate it on data that was not used during training**...
+
 ## Evaluate on the Validation Set
 One approach is to split the training set into a smaller training set and a validation set. You would then train the model on the smaller training set and evaluate it on the validation set.
 
@@ -78,10 +80,12 @@ tree_rmse = root_mean_squared_error(y_valid, predictions) # 63837.60
 ```
 
 This approach gives a **more realistic estimate of how the model will perform on unseen data**. However, the evaluation depends on a single train/validation split, which means the result may vary depending on which samples end up in the validation set.
+
 ## Cross-Validation
 A more reliable alternative is **k-fold cross-validation**.
 
 The training set is split into _k_ non-overlapping subsets called _folds_. The model is trained _k_ times. Each time, a different fold is used for validation while the remaining _k − 1_ folds are used for training. The final result is a collection of _k_ evaluation scores instead of a single score.
+
 ![[2-20.png]]
 
 Scikit-Learn provides the `cross_val_score()` function to perform #cross-validation:
@@ -122,6 +126,7 @@ Cross-validation not only provides a real and **robust performance measure**, bu
 
 > [!warning] 
 > The downside of cross-validation is that the model must be trained multiple times, which can become **computationally expensive** for large datasets or complex models.
+
 ## Try a More Powerful Model
 Next, let's train a #random-forest model:
 

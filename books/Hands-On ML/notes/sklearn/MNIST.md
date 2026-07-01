@@ -1,6 +1,8 @@
 # MNIST
 The **MNIST** dataset is a set of **70,000 small images of handwritten digits**, each labeled with the digit it represents.
+
 ![[3-2.png]]
+
 You can fetch it from [OpenML.org](https://www.openml.org/) using Scikit-Learn:
 
 ```python
@@ -24,6 +26,7 @@ some_digit = X[0]
 plot_digit(some_digit)
 plt.show()
 ```
+
 ![[3-1.png]]
 
 The images are **clean, centered, and roughly the same size**, so MNIST needs little preprocessing (real-world datasets aren't usually this friendly).

@@ -1,4 +1,5 @@
 # Get the Data
+
 ## Download the Data
 In typical environments, data is often stored in a **relational database** or another common data store and distributed across multiple tables, documents, or files. Before you access it, you must **first become familiar with the data schema**.
 
@@ -15,6 +16,7 @@ def load_data():
 
 df = load_data()
 ```
+
 ## Take a Quick Look at the Data Structure
 You start by **looking at the top five rows** of data using the DataFrame’s `head()` method.
 
@@ -53,6 +55,7 @@ plt.show()
 ```
 
 You should now have a better understanding of the kind of data you’re dealing with!
+
 ## Create a Test Set
 Before exploring the data any further, you should create a test set, set it aside, and **never look at it during development**! Otherwise, you risk introducing [[Data Snooping Bias]].
 
@@ -69,6 +72,7 @@ train_set, test_set = train_test_split(df, test_size=0.2)
 ```
 
 Well, this works, but it is not perfect: **if you run the program again, it will generate a different test set!** Over time, you (or your machine learning algorithms) will get to see the whole dataset, which is what you want to avoid.
+
 ### Reproducible Splits
 One solution is to save the test set on the first run and then load it in subsequent runs.  Another option is to **fix the random seed** so that the same split is generated every time.
 
@@ -79,6 +83,7 @@ train_set, test_set = train_test_split(df, test_size=0.2, random_state=42)
 ```
 
 While this guarantees reproducibility, it introduces another problem: **the split may change when new data is added to the dataset**.
+
 ### Stable Splits Across Dataset Updates
 To keep the train/test split stable even after refreshing the dataset, a common approach is to use a unique and immutable **ID for each instance**.
 
@@ -94,6 +99,7 @@ The simplest alternative is to use the row index as the identifier. However, thi
 - Existing rows are never deleted.
 
 If these conditions cannot be guaranteed, you should build an identifier from one or more stable features that uniquely identify each instance.
+
 ### Stratified Sampling
 So far, we have considered purely random sampling methods. This generally works well when the dataset is large enough (especially relative to the number of attributes). However, with smaller datasets, random sampling may introduce significant [[Sampling Bias|sampling bias]].
 

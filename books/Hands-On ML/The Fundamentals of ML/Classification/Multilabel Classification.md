@@ -32,6 +32,7 @@ f1_score(y_multilabel, y_train_knn_pred, average="macro") # 0.976410265560605
 ```
 
 This assumes **all labels are equally important**, which may not hold — e.g. if you have many more pictures of Alice than of Bob or Charlie. One option is to weight each label by its **support** (the number of instances with that label) by setting `average="weighted"`.
+
 ## Chain Classifiers
 If you want to use a classifier that doesn't natively support multilabel classification (such as `SVC`), one strategy is to train one model per label. The problem: this can't capture **dependencies between labels**.
 

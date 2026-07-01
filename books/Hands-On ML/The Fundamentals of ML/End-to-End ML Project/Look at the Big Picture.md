@@ -1,4 +1,5 @@
 # Look at the Big Picture
+
 ## Frame the Problem
 The first question to ask your boss is what exactly the business objective is: **How does the company expect to use and benefit from this model?** Knowing the objective is important because it will determine which algorithms you will select, which performance measure you will use to evaluate your model, and how much effort you will spend tweaking it.
 
@@ -8,6 +9,7 @@ With a clear understanding of the objective and the current solution, you can be
 1. First, determine what kind of **training supervision** the model will need: is it a supervised, unsupervised, semi-supervised, self-supervised, or reinforcement learning task? 
 2. What type of machine learning tasks is it? Is it classification, regression, or something else?
 3. Should you use **batch or online learning** techniques?
+
 ## Select a Performance Measure
 Your next step is to select a performance measure. 
 
@@ -27,5 +29,6 @@ $$
 \mathrm{MAE}(\mathbf{X},y,h)=\frac{1}{m}\sum_{i=1}^{m}\left|h\!\left(\mathbf{x}^{(i)}\right)-y^{(i)}\right|
 $$
 Both the RMSE and the MAE are [[Ways to Measure Distance]] between two vectors: the vector of predictions and the vector of target values.
+
 ## Check the Assumptions
 Lastly, it is good practice to list and verify the assumptions that have been made so far (by you or others); this can help you catch serious issues early on.

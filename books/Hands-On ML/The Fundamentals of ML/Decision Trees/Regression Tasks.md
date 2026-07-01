@@ -1,4 +1,5 @@
 # Decision Trees for Regression
+
 ## Using Scikit-Learn
 Let's fit a `DecisionTreeRegressor` on a noisy quadratic dataset:
 
@@ -16,6 +17,7 @@ tree_reg.fit(X_quad, y_quad)
 [...] # visualize the tree graph
 [...] # plot the fitted model
 ```
+
 ![[5-4.png]]
 > A regression tree: each node predicts a value instead of a class.
 

@@ -81,4 +81,5 @@ plt.plot(X, y, "b.")
 [...] # beautify the figure: add labels, axis, grid, and legend
 plt.show()
 ```
+
 ![[4-2.png]]

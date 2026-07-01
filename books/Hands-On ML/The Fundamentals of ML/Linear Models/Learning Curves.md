@@ -18,6 +18,7 @@ m = 200 # number of instances
 X = 6 * rng.random((m, 1)) - 3
 y = 0.5 * X ** 2 + X + 2 + rng.standard_normal((m, 1))
 ```
+
 ![[4-12.png]]
 
 Now, let's look at the learning curves of the plain [[Linear Regression|linear regression]] model:
@@ -37,6 +38,7 @@ plt.plot(train_sizes, train_errors, "r-+", linewidth=2, label="train")
 plt.plot(train_sizes, valid_errors, "b-", linewidth=3, label="valid")
 plt.show()
 ```
+
 ![[4-15.png]]
 > These curves are **typical of an underfitting model:** both reach a plateau, they're close together, and they're fairly high.
 
@@ -59,6 +61,7 @@ train_sizes, train_scores, valid_scores = learning_curve(
 
 # ...same plotting as before
 ```
+
 ![[4-16.png]]
 > These curves are **typical of an overfitting model:** the training error is low and there is a gap between the curves — the model performs better on the training data than on the validation data.
 

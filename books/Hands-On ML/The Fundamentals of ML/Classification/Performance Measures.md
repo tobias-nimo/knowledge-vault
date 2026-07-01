@@ -26,6 +26,7 @@ sgd_clf.predict([some_digit]) # array([True]) -> correct prediction
 
 >[!tip] 
 >`SGDClassifier` is always a good place to start. It is a simple algorithm and it handles very large datasets efficiently.
+
 ## Accuracy
 Let's use #cross-validation to evaluate our classifier measuring #accuracy:
 
@@ -51,7 +52,9 @@ cross_val_score(dummy_clf, X_train, y_train_5, cv=3, scoring="accuracy")
 
 Over 90% accuracy! This happens simply because only about 10% of the images are 5s, so always guessing *not a 5* is right about 90% of the time.
 
->[!warning] This is why **accuracy is generally not the preferred performance measure for classifiers**, especially with skewed datasets (when some classes are much more frequent than others).
+>[!warning] 
+>This is why **accuracy is generally not the preferred performance measure for classifiers**, especially with skewed datasets (when some classes are much more frequent than others).
+
 ## Confusion Matrix
  To compute the #confusion-matrix, you **first need a set of predictions** that can be compared against the actual targets. 
  
@@ -80,7 +83,9 @@ array(
 ```
 
 If you are confused about the confusion matrix, the figure below illustrates its main components in the context of this example.
+
 ![[3-3.png]]
+
 ## Precision, Recall and F1 Score
 #precision is the accuracy of the positive predictions:
 $$
@@ -116,11 +121,14 @@ precision_score(y_train_5, y_train_pred) # == 3530 / (687 + 3530) = 0.8370
 recall_score(y_train_5, y_train_pred) # == 3530 / (1891 + 3530) = 0.6511
 f1_score(y_train_5, y_train_pred) # 0.7325
 ```
+
 ## Precision/Recall Curve
 In some contexts you mostly care about precision, and in other contexts you really care about recall. Unfortunately, you can’t have it both ways: **increasing precision reduces recall, and vice versa**. This is called the #precision-recall-trade-off.
 
 To understand this trade-off, let's look at **how most classifiers make their decisions**. For each instance, they compute a score using a decision function. If that score is greater than a threshold, the instance is assigned to the positive class; otherwise it's assigned to the negative class.
+
 ![[3-4.png]]
+
 Instead of `predict()`, you can call `decision_function()` to get each instance's score, then threshold it yourself:
 
 ```python
@@ -154,6 +162,7 @@ plt.plot(thresholds, recalls[:-1], "g-", label="Recall", linewidth=2)
 plt.vlines(threshold, 0, 1.0, "k", "dotted", label="threshold")
 plt.show()
 ```
+
 ![[3-5.png]]
 
 Another way to choose a trade-off is to **plot precision directly against recall** ( #PR curve):
@@ -162,6 +171,7 @@ Another way to choose a trade-off is to **plot precision directly against recall
 plt.plot(recalls, precisions, linewidth=2, label="Precision/Recall curve")
 plt.show()
 ```
+
 ![[3-6.png]]
 
 Suppose you **aim for 90% precision**. Search for the lowest threshold that achieves it using `argmax()`:
@@ -184,6 +194,7 @@ You now have a 90% precision classifier! It's actually **easy to reach almost an
 > [!note] Scikit-Learn offers two classes that make adjusting the threshold easier:
 > - [`FixedThresholdClassifier`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.FixedThresholdClassifier.html) wraps a binary classifier and lets you set the threshold manually.
 > - [`TunedThresholdClassifierCV`](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TunedThresholdClassifierCV.html) uses k-fold cross validation to automatically find the optimal threshold for a given metric (by default, it tries to find the threshold that maximizes the model’s balanced accuracy — the average of each class’s recall).
+
 ## ROC Curve
 The #ROC (receiver operating characteristic) curve is another **common tool for binary classifiers**. It plots the **true positive rate** (another name for #recall or *sensitivity*) against the **false positive rate** (another name for #fall-out).
 $$
@@ -215,7 +226,9 @@ plt.plot([0, 1], [0, 1], 'k:', label="Random classifier's ROC curve")
 plt.plot([fpr_90], [tpr_90], "ko", label="Threshold for 90% precision")
 plt.show()
 ```
+
 ![[3-7.png]]
+
 The dotted line is the **ROC curve of a purely random classifier**; a good classifier stays as far from it as possible (toward the top-left corner). Once again there's a trade-off: **the higher the recall (TPR), the more false positives (FPR)**. 
 
 One way to compare classifiers is the **area under the curve** ( #AUC ): a perfect classifier has ROC AUC equal to 1, a purely random one has 0.5.
@@ -225,6 +238,7 @@ from sklearn.metrics import roc_auc_score
 
 roc_auc_score(y_train_5, y_scores) # 0.9604
 ```
+
 ## Comparing Classifiers
 
 >[!tip] ROC curve or PR curve?
@@ -262,7 +276,9 @@ plt.plot(recalls_forest, precisions_forest, "b-", linewidth=2, label="Random For
 plt.plot(recalls, precisions, "--", linewidth=2, label="SGD")
 plt.show()
 ```
+
 ![[3-8.png]]
+
 The random forest's PR curve comes much closer to the **top-right corner**, so it's clearly superior to the SGD classifier.
 
 Its $\text{F}_1$ and ROC AUC scores are also significantly better:

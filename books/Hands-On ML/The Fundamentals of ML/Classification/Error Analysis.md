@@ -20,6 +20,7 @@ cross_val_score(
 ```
 
 One way to improve it is #error-analysis — **analyzing the types of errors the model makes**. Understanding the model's most common mistakes lets you target fixes, such as #feature-engineering or just adding more examples of the most misclassified instances.
+
 ## Looking at the confusion matrix
 First get clean out-of-sample predictions with `cross_val_predict()`, then plot the matrix with `ConfusionMatrixDisplay.from_predictions()`:
 
@@ -31,6 +32,7 @@ y_train_pred = cross_val_predict(sgd_clf, X_train_scaled, y_train, cv=3)
 ConfusionMatrixDisplay.from_predictions(y_train, y_train_pred)
 plt.show() # figure 3-9 (left)
 ```
+
 ![[3-9.png]]
 > **Left:** raw confusion matrix. **Right:** the same matrix normalized by row.
 
@@ -53,6 +55,7 @@ ConfusionMatrixDisplay.from_predictions(y_train, y_train_pred,
                                         normalize="true", values_format=".0%")
 plt.show() # figure 3-10 (left)
 ```
+
 ![[3-10.png]]
 > Confusion matrix with **errors only**. **Left:** normalized by row. **Right:** normalized by column.
 
@@ -81,6 +84,7 @@ X_ba = X_train[(y_train == cl_b) & (y_train_pred == cl_a)] # true 5s, pred 3
 X_bb = X_train[(y_train == cl_b) & (y_train_pred == cl_b)] # true 5s, pred 5
 [...] # plot all four blocks in a confusion matrix style
 ```
+
 ![[3-11.png]]
 > Some images of 3s and 5s organized like a confusion matrix.
 

@@ -6,12 +6,14 @@ Training a model is a search for the parameter combination that minimizes the co
 The intuition: imagine you're lost in the mountains in dense fog and can only feel the slope under your feet. To reach the valley quickly, you head downhill in the direction of the steepest slope. Gradient descent does exactly this — it measures the local gradient of the cost function with regard to the parameter vector $\boldsymbol{\theta}$ and moves in the direction of descending gradient. Once the gradient is zero, you've reached a minimum.
 
 In practice you start by filling $\boldsymbol{\theta}$ with random values (*random initialization*), then improve it one baby step at a time, each step trying to decrease the cost (e.g. the [[Linear Regression|MSE]]), until the algorithm converges.
+
 ![[4-3.png]]
 
 > [!note] About #MSE 
 > Fortunately, the **MSE cost function for [[Linear Regression|linear regression]] is convex**: any line segment joining two points on the curve never dips below it, so there are no local minima — just one global minimum. It's also continuous with a slope that never changes abruptly. Together these mean gradient descent is **guaranteed to approach the global minimum arbitrarily closely**, given enough time and a learning rate that isn't too high.
 
 ## Common Pitfalls
+
 ### Learning Rate
 The step size is proportional to the slope and controlled by the #learning-rate hyperparameter, so it gradually shrinks as the cost approaches the minimum.
 
@@ -22,22 +24,24 @@ The step size is proportional to the slope and controlled by the #learning-rate 
 > **Learning rate is too high** → the algorithm can **diverge**, with larger and larger values, failing to find a good solution.
 
 The choice of learning rate has a major impact on how gradient descent behaves. The figure below shows the first 20 steps of the algorithm when training a linear regression model with three different learning rates:
+
 ![[4-8.png]]
 > too low (left, slow), good (middle, converges in a few epochs), and too high (right, diverges and jumps all over the place).
 
 > [!tip]
-> To find a good #learning-rate, use #grid-search — but cap the number of epochs so it can eliminate models that converge too slowly. 
+> To find a good #learning-rate, use #grid-search — but cap the number of epochs so it can eliminate models that converge too slowly.
+
 ### Local Minima and Plateaus
 Not all cost functions are nice regular bowls like MSE— there may be holes, ridges, and plateaus that make convergence hard. For example, see Figure 4-6:
 - If random initialization starts you on the left, you converge to a **local minimum**, which is worse than the global minimum.
 - If it starts you on the right, crossing the **plateau** takes a very long time, and if you stop too early you never reach the global minimum.
 
 ![[4-6.png]]
+
 ### Feature scaling
 Even a convex bowl like the MSE can be elongated if the **features have very different scales**. 
 ![[4-7.png]]
 > With features on the same scale (left) gradient descent heads straight for the minimum; with very different scales (right) it first moves almost orthogonally to the goal, then crawls down a near-flat valley — much slower.
-
 
 >[!warning] Scale your features
 > #normalization #standardization 
@@ -115,6 +119,7 @@ $$
 Note there's no $\tfrac{1}{m}$ averaging — it's a single, noisy estimate of the full-batch gradient. Each step is very fast, needs little memory, and can train on huge sets (it works as an out-of-core algorithm).
 
 The price is irregularity: instead of gently decreasing, the cost **bounces up and down, decreasing only on average**. It ends up close to the minimum but keeps bouncing, never settling — so the final parameters are good, but not optimal.
+
 ![[4-9.png]]
 
 This randomness has an upside: on irregular cost functions it helps the algorithm **jump out of local minima**, giving it a better shot at the global minimum than batch GD. The dilemma — randomness escapes local optima but prevents settling — is resolved by gradually reducing the learning rate. Steps start large (quick progress, escape local minima) then shrink, letting it settle. 
@@ -152,6 +157,7 @@ theta
 ```
 
 By convention each round of $m$ iterations is an #epoch. Where batch GD iterated 1,000 times over the whole set, this reaches a good solution in just 50 passes.
+
 ![[4-10.png]]
 
 > [!warning] **Training instances must be IID**  
@@ -195,4 +201,5 @@ This sits between the two extremes: $n_b = m$ recovers batch GD, $n_b = 1$ recov
 Its main advantage over SGD is a **performance boost from hardware acceleration** of matrix operations, especially on GPUs. Also, its progress is less erratic than SGD (more so with larger mini-batches), so it ends up walking a bit closer to the minimum — but it may also find it harder to escape local minima on problems that have them.
 
 The next figure shows the paths of all three variants in parameter space: batch GD's path stops at the minimum, while SGD and mini-batch GD keep walking around it (though a good learning schedule would let them settle too).
+
 ![[4-11.png]]

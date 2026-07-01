@@ -10,6 +10,7 @@ from my_datasets import train_set # defined in ./get-the-data
 features = train_set.drop("target", axis=1)
 labels = train_set["target"].copy()
 ```
+
 ## Clean the Data
 Most machine learning algorithms cannot work with **missing features**, so you’ll need to take care of these. You have three options to fix this:
 1. Get rid of the instances.
@@ -56,6 +57,7 @@ features_tr = pd.DataFrame(
 
 > [!note]
 > There are many more Scikit-Learn [[Imputers]] available in the `sklearn.impute` package.
+
 ## Handling Text and Categorical Attributes
 Suppose our dataset has one text-based feature, and it is categorical.
 
@@ -64,7 +66,8 @@ features_cat = features[["cat_var"]]
 features_cat.value_counts()
 ```
 
-Most machine learning algorithms prefer to work with numbers, so let’s **convert these categories from text to numbers**. 
+Most machine learning algorithms prefer to work with numbers, so let’s **convert these categories from text to numbers**.
+
 ### Ordinal Encoding
 #ordinal-encoding **converts each category into an integer value**. For this, we can use Scikit-Learn’s `OrdinalEncoder` class:
 
@@ -79,6 +82,7 @@ print(ordinal_encoder.categories_) # [array(['text1', 'text2', ...], dtype=objec
 ```
 
 One issue with this representation is that ML algorithms will assume that two nearby values are more similar than two distant values. This may be fine for **ordinal categories** (e.g., "bad", "average", "good", and "excellent"), but not for **nominal categories** (e.g., "red", "blue" and "green").
+
 ### One-Hot Encoding
 #one-hot-encoding  solves this problem by creating **one binary feature for each category**. For example, a feature with categories `red`, `green`, and `blue` can be transformed into three binary features:
 
@@ -87,6 +91,7 @@ One issue with this representation is that ML algorithms will assume that two ne
 | red   | 1   | 0     | 0    |
 | green | 0   | 1     | 0    |
 | blue  | 0   | 0     | 1    |
+
 The resulting binary features are often called **dummy variables**: takes the value `1` if the instance belongs to that category and `0` otherwise.
 
 >[!warning] 
@@ -115,10 +120,12 @@ df_output = pd.DataFrame(
 	index=df_new.index
 )
 ```
+
 ## Feature Scaling and Transformation
 One of the most important transformations you need to apply to your data is feature scaling. With few exceptions, **machine learning algorithms don’t perform well when the input numerical attributes have very different scales**.
 
-There are two common ways to get all attributes to have the same scale: 
+There are two common ways to get all attributes to have the same scale:
+
 ### Normalization
 #normalization (or min-max scaling) **rescales values to a fixed range**, usually 0–1:
 $$x' = \frac{x - x_{\min}}{x_{\max} - x_{\min}}$$
@@ -130,6 +137,7 @@ from sklearn.preprocessing import MinMaxScaler
 min_max_scaler = MinMaxScaler(feature_range=(-1, 1))
 features_num_norm = min_max_scaler.fit_transform(features_num)
 ```
+
 ### Standardization
 #standardization rescales values so they have a **mean of 0 and a standard deviation of 1**:  
 $$x' = \frac{x - \mu}{\sigma}$$Unlike normalization, standardization does not restrict values to a fixed range, but it is generally **less sensitive to outliers**. Scikit-Learn provides the `StandardScaler` transformer for this task.
@@ -141,11 +149,12 @@ std_scaler = StandardScaler()
 features_num_std = std_scaler.fit_transform(features_num)
 ```
 
-> [!note]
+> [!warning]
 > Always remember to **fit scalers on the training set only** to avoid data leakage. After fitting, use `transform()` on the validation set, test set, and new data. With `MinMaxScaler`, values outside the training range may be scaled outside the target range; set `clip=True` to prevent this.
 
 > [!tip] 
 > Check this notes about [[Handling Non-Symmetrical Distributions]] before scaling.
+
 ### Transforming the Target Variable
 Sometimes the target variable also requires transformation. For example, if the target has a heavy-tailed distribution, applying a logarithmic transformation may improve model performance.
 
@@ -166,11 +175,13 @@ predictions = model.predict(X_test)
 ```
 
 This is usually safer and less error-prone than manually transforming and inverse-transforming the target values.
+
 ## Custom Transformers
 Although Scikit-Learn provides many useful transformers, you will occasionally need to **write your own** [[Custom Transformers|custom transformers]] for specific tasks.
 
 > [!warning] Remember
 > Transformers must never change the number of rows in a dataset!
+
 ## Transformation Pipelines
 Real-world preprocessing often requires **multiple transformations applied in a specific order**. Scikit-Learn's `Pipeline` class allows you to chain these steps into a single estimator.
 
@@ -230,6 +241,7 @@ df_features_num_prepared = pd.DataFrame(
 	index=features_num.index
 	)
 ```
+
 ### Column Transformation Pipelines
 So far, we have handled the categorical and numerical columns separately. `ColumnTransformer` allows us to combine them into a **single transformer that applies the appropriate transformation to each column**.
 
@@ -284,6 +296,7 @@ df_features_prepared = pd.DataFrame(
 	index=features.index
 	)
 ```
+
 ### Practical Example
 
 ```python

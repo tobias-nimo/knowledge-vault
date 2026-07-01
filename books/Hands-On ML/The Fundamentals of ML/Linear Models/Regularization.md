@@ -166,5 +166,5 @@ elastic_net.predict([[1.5]])  # array([1.8645014])
 > - If you suspect **only a few features are useful**, prefer **lasso** or **elastic net**, since they drive useless weights to zero.
 > - Prefer **elastic net over lasso** in general: lasso can behave erratically when there are **more features than training instances**, or when several features are **strongly correlated**.
 
-> [!tip] Efficient CV variants  
+> [!note] Efficient CV variants  
 > Several regularized linear models have specialized cross-validation estimators that **automatically tune their hyperparameters using cross-validation**. These are roughly equivalent to `GridSearchCV` but are optimized for their specific models, making them much faster. Examples include `RidgeCV`, `LassoCV`, and `ElasticNetCV`.

@@ -6,6 +6,7 @@
 
 > [!note] Other implementations
 > Several optimized gradient boosting libraries exist in the Python ecosystem — [XGBoost](https://github.com/dmlc/xgboost), [CatBoost](https://catboost.ai/), and [LightGBM](https://lightgbm.readthedocs.io/en/stable/). Their APIs are very similar to Scikit-Learn's and they add features like GPU acceleration.
+
 ## AdaBoost
 The idea behind #adaboost (*adaptive boosting*) is to **pay more attention to the training instances that the predecessor underfit**, so new predictors focus more and more on the hard cases.
 
@@ -36,6 +37,7 @@ Let's take a closer look at the **AdaBoost algorithm**:
 To make predictions, AdaBoost computes the predictions of all predictors and weighs them by $\alpha_j$. The predicted class is the one that receives the **majority of weighted votes**:
 $$\hat{y}(\mathbf{x}) = \underset{k}{\text{argmax}} \sum_{\substack{j=1 \\ \hat{y}_j(\mathbf{x}) = k}}^{N} \alpha_j$$
 Where $N$ is the number of predictors.
+
 ### In Scikit-Learn
 Scikit-Learn uses a multiclass version of AdaBoost called **SAMME** (*Stagewise Additive Modeling using a Multiclass Exponential loss function*). With just two classes, SAMME is equivalent to AdaBoost.
 
@@ -123,6 +125,7 @@ The `GradientBoostingRegressor` class also supports **other important hyperparam
 - `learning_rate` scales the contribution of each tree. A lower learning rate (say `0.05`) requires more trees (say 500) to fit the training data, but often improves generalization. This regularization technique is called #shrinkage. You can use [[Fine-tune|grid or randomized search]] to find the optimal learning rate.
 - `n_iter_no_change` enables #early-stopping, automatically stopping training once the validation score has failed to improve by at least `tol` (default `0.0001`) for the specified number of iterations. When enabled, `fit()` automatically holds out a validation set (controlled by `validation_fraction`, 10% by default) to evaluate each new tree. Setting `n_iter_no_change` too low may underfit the data, while setting it too high can lead to overfitting.
 - `subsample` specifies the fraction of training instances used to fit each tree. For example, `subsample=0.25` trains every tree on a random 25% of the training instances. This increases bias, reduces variance, speeds up training, and is known as #stochastic-gradient-boosting.
+
 ## Histogram-Based Gradient Boosting
 #HGB is a #GBRT implementation **optimized for large datasets**. It bins the input features, replacing them with integers. The number of bins is set by `max_bins` (defaults to 255, can't go higher).
 

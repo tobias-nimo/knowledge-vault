@@ -37,6 +37,7 @@ The gradient of the cost for class $k$ lets you run [[Gradient Descent|gradient 
 $$
 \nabla_{\boldsymbol{\theta}^{(k)}}\,J(\boldsymbol{\Theta}) = \frac{1}{m} \sum_{i=1}^{m} \big(\hat{p}_k^{(i)} - y_k^{(i)}\big)\,\mathbf{x}^{(i)}
 $$
+
 ## Using Scikit-Learn
 Scikit-Learn's `LogisticRegression` uses **softmax regression automatically** when trained on more than two classes (with the default `solver="lbfgs"`). It applies $\ell_2$ regularization by default, controlled by `C` — decrease `C` to increase regularization. Let's classify the [[Iris|iris]] plants into all **three** classes:
 
