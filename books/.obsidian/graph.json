@@ -48,6 +48,13 @@
         "a": 1,
         "rgb": 6073814
       }
+    },
+    {
+      "query": "path:\"Hands-On ML/The Fundamentals of ML/Dimensionality Reduction\"  ",
+      "color": {
+        "a": 1,
+        "rgb": 6053078
+      }
     }
   ],
   "collapse-display": true,
