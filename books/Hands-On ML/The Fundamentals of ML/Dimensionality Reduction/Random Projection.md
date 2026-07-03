@@ -37,7 +37,7 @@ X_reduced = X @ P.T
 
 That's all there is to it. Training is **almost instantaneous**: the only thing the algorithm needs to build the random matrix is the dataset's *shape* — the data itself is never used. 
 
-This makes random projection particularly well suited for very high-dimensional data (text, genomics with millions of features) or very sparse data, where even #randomized-pca may be too slow or memory-hungry. At inference time it is just as fast as #PCA (one matrix multiplication).
+This makes random projection particularly well suited for very high-dimensional data (text, genomics with millions of features) or very sparse data, where even [[Randomized PCA]] may be too slow or memory-hungry. At inference time it is just as fast as [[PCA]] (one matrix multiplication).
 
 > [!tip] Random Projection vs. PCA
 > Random projection is a **simple, fast, memory-efficient, and surprisingly powerful** dimensionality reduction technique for high-dimensional datasets. 
@@ -74,7 +74,7 @@ X_reduced = sparse_rnd_proj.fit_transform(X)
 > 
 > You can override this with the `density` hyperparameter.
 
-> [!tip]  Gaussian vs. Sparse
+> [!tip] Gaussian vs. Sparse
 > In practice, `SparseRandomProjection` is usually the preferred implementation for large or sparse datasets.
 
 ## Inverse transform
