@@ -30,7 +30,7 @@ If you project every instance perpendicularly onto that subspace (the dashed lin
 > The new 2D dataset after projection onto the subspace.
 
 ## Manifold Learning
-Projection is fast and often works well, but it's not always the best approach. The **subspace may twist and turn**, as in the *Swiss roll* dataset:
+Projection is fast and often works well, but it's not always the best approach. The **subspace may twist and turn**, as in the [[Swiss Roll]] dataset:
 
 ![[7-4.png]]
 > The Swiss roll: 3D points arranged in a rolled-up sheet.

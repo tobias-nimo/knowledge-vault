@@ -1,7 +1,7 @@
 # PCA
 Principal component analysis ( #PCA ) is by far the most popular dimensionality reduction algorithm. It first identifies the **hyperplane that lies closest to the data**, and then **projects the data onto it**.
 
-## How Does it Work?
+## How PCA Works
 
 ### Preserving the variance
 Before you can project the training set onto a lower-dimensional hyperplane, you first need to choose the right hyperplane. 
