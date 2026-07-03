@@ -60,8 +60,13 @@ The manifold assumption usually comes with an implicit companion: that the **tas
 
 ---
 
-The most popular techniques covered next:
+Notes on dimensionality reduction techniques:
+
 - [[PCA]]
-- [[LLE]]
 - [[Random Projection]]
-- [[Other Techniques]]
+- [[LLE]]
+- [[Other Techniques|MDS]]
+- [[Other Techniques|Isomap]]
+- [[Other Techniques|TSNE]]
+- [[Other Techniques|LDA]]
+- [[Other Techniques|UMAP]]
