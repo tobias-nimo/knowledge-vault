@@ -15,4 +15,9 @@ Notes on unsupervised learning techniques:
 - [[DBSCAN]]
 - [[Gaussian Mixtures]]
 
-Clustering can also power [[Semi-Supervised Learning]] (labeling representative instances and propagating labels).
+Clustering can also power [[Semi-Supervised Learning|semi-supervised learning]] and [[k-Means#k-Means|non-linear dimensionality reduction]].
+
+> [!note] Cluster
+> There is no universal definition of what a cluster is: it really depends on the context, and different algorithms will capture different kinds of clusters. 
+> 
+> Some algorithms look for instances centered around a particular point, called a centroid. Others look for continuous regions of densely packed instances: these clusters can take on any shape. Some algorithms are hierarchical, looking for clusters of clusters. And the list goes on.

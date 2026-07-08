@@ -50,11 +50,11 @@ kmeans.transform(X_new).round(2)
 #        [0.73, 3.22, 0.36, 1.55, 1.22]])
 ```
 
->[!tip] Nonlinear Dimensionality Reduction
+>[!tip] Nonlinear dimensionality reduction
 > If you have a high-dimensional dataset and you transform it this way, you end up with a k-dimensional dataset: this transformation can be a very efficient nonlinear #dimensionality-reduction technique. 
 
-> [!tip] #feature-engineering
-> Alternatively, you can use the computed distances as **extra features** to train another model, as we did [[Custom Transformers|here]].
+> [!tip] Create new features
+> Alternatively, you can use the computed distances as **extra features** to train another model, as we did [[Custom Transformers|here]]. #feature-engineering
 
 Plotting the decision boundaries gives the following figure:
 
@@ -82,7 +82,7 @@ The algorithm is **guaranteed to converge** in a finite (usually small) number o
 ![[8-4.png]]
 > The k-means algorithm: centroids initialized randomly (top left), instances labeled (top right), centroids updated (center left), and so on — close to optimal in just three iterations.
 
->[!tip] Computational Complexity
+>[!tip] Computational complexity
 > k-means is generally **one of the fastest clustering algorithms**.
 
 ## Centroid Initialization
@@ -181,5 +181,5 @@ Despite being **fast and scalable**, k-means is not perfect:
 
 Depending on the data, different algorithms may perform better — on elliptical clusters, [[Gaussian Mixtures|Gaussian mixture models]] work great.
 
->[!warning] Scale Your Features!
+>[!warning] Scale your features!
 > Always scale the input features before running k-means, or the clusters may be very stretched and k-means will perform poorly. Scaling doesn't guarantee nice spherical clusters, but it generally helps.
