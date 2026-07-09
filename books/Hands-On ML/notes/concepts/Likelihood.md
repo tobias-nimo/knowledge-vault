@@ -35,3 +35,8 @@ $$
 =\sum_{i=1}^{n}\log f(x_i;\theta).  
 $$
 Once the estimate $\hat{\theta}$ is found, the maximized likelihood provides a **measure of how well the model fits the observed data**.
+
+---
+
+![[8-18.png]]
+> A 1D mixture model with a single parameter $\theta$ (top left). Fixing $\theta = 1.3$ (horizontal line) yields the PDF $f(x; \theta = 1.3)$ — a function of $x$ used to estimate the probability of future outcomes, e.g. integrating over $[-2, 2]$ gives the shaded region's area (lower left). Observing $x = 2.5$ instead (vertical line) yields the likelihood function $\mathcal{L}(\theta \mid x = 2.5)$ — a function of $\theta$, maximized at the MLE $\hat{\theta} \approx 1.66$ (top right). The log likelihood peaks at the same $\hat{\theta}$ (lower right).
