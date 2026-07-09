@@ -20,6 +20,9 @@ GMM relies on the expectation-maximization ( #EM ) algorithm:
 4. **Maximization step**. Update each cluster's parameters using all instances in the dataset, but weighting each instance by its responsibility $r^{(i,j)}$.
 5. **Check for convergence.** Compare the new parameters to the old ones. If they moved beyond some tiny tolerance, go back to step 3 and repeat. If not, you're done.
 
+>[!note]
+> The exact update formulas for these steps are derived via [[Likelihood|maximum likelihood estimation]]: the maximization step sets each cluster's parameters to the values that maximize the (responsibility-weighted) likelihood of the data.
+
 The algorithm is **guaranteed to converge** in a finite (usually small) number of steps: at each iteration, both the expectation and maximization steps are guaranteed to increase (or maintain) the likelihood of the data under the model — never decrease it. Since the likelihood is bounded above, the algorithm must converge.
 
 ## In Scikit-Learn
