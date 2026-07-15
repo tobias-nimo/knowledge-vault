@@ -11,6 +11,10 @@ The book is organized into two parts:
 	- Modern Deep Learning Architectures: feedforward networks, CNNs, RNNs/LSTMs, transformers, SSMs, auto-encoders, GANs, diffusion models, and when to use each of them.
 	- How to efficiently load and preprocess large datasets, and how to build agents that learn through trial and error using reinforcement learning.
 
-If you are particularly interested in one topic and want to reach it as quickly as possible, Figure P-1 shows which chapters you should read first, and which ones you can safely skip.
+If you want to reach one topic as quickly as possible, the figure below shows which chapters to read first, and which ones you can safely skip.
 
 ![P-1.png](figures/P-1.png)
+> Each track is the shortest path to its topic — follow the arrows and skip the rest.
+
+>[!tip] Online content
+>The online chapters 🌐 (including SVM appendix) are available [here](https://ageron.github.io/).
